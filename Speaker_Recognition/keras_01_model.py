@@ -38,19 +38,19 @@ print(y_test.shape)     # (161,)
 # 모델 구성
 model = Sequential()
 
-def residual_block(x, filters, conv_num=3, activation="relu"):
+def residual_block(x, filters, conv_num=3, activation="relu"):  # ( input, output node, for 문 반복 횟수, activation )
     # Shortcut
     s = Conv1D(filters, 1, padding="same")(x)
     for i in range(conv_num - 1):
         x = Conv1D(filters, 3, padding="same")(x)
         x = Activation(activation)(x)
     x = Conv1D(filters, 3, padding="same")(x)
-    x = Add()([x, s])
+    x = Add()([x, s])                                           # add : for문을 통과한 x 가중치 & 맨 위에 있는 s 가중치를 합친다.
     x = Activation(activation)(x)
     return MaxPool1D(pool_size=2, strides=1)(x)
 
 
-def build_model(input_shape, num_classes):
+def build_model(input_shape, num_classes):                      # (input shape, outut dense node)
     inputs = Input(shape=input_shape, name="input")
 
     x = residual_block(inputs, 16, 2)
@@ -59,16 +59,18 @@ def build_model(input_shape, num_classes):
     x = residual_block(x, 128, 3)
     x = residual_block(x, 128, 3)
 
-    x = AveragePooling1D(pool_size=3, strides=3)(x)
-    x = Flatten()(x)
+    x = AveragePooling1D(pool_size=3, strides=3)(x)             # AveragePolling : 평균함
+    x = Flatten()(x)                                            # fully connected layer : Flatten을 사용해서 Conv1D와 Dense를 이어준다.
     x = Dense(256, activation="relu")(x)
     x = Dense(128, activation="relu")(x)
 
-    outputs = Dense(num_classes, activation="softmax", name="output")(x)
+    outputs = Dense(num_classes, activation="softmax", name="output")(x)    # softmax : 결국 우리가 구분하고자 하는 화자는 여러 명이기 때문에 softmax를 사용함
 
     return Model(inputs=inputs, outputs=outputs)
 
-model = build_model(x_train.shape[1:], 2)
+model = build_model(x_train.shape[1:], 2)       
+# print(x_train.shape[1:])    # (20, 216)
+
 
 model.summary()
 
