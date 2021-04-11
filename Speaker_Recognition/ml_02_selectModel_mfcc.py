@@ -63,7 +63,7 @@ time = end_now - start_now
 print("time >> " , time)    # time >
 
 '''
-* : 0.94 이상 >> LinearDiscriminantAnalysis, LogisticRegressionCV, SVC
+* : 0.94 이상 >>  SVC, LinearDiscriminantAnalysis, LogisticRegressionCV,
 + : 0.93 이상 >> ExtraTreesClassifier, GradientBoostingClassifier, NuSVC, SGDClassifier
 ! : 0.92 이상 >> CalibratedClassifierCV, ComplementNB, GaussianNB, LogisticRegression, MultinomialNB, NearestCentroid, PassiveAggressiveClassifier, Perceptron
 

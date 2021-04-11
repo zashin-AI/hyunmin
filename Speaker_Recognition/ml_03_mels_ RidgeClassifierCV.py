@@ -8,12 +8,18 @@ import numpy as np
 import datetime 
 import librosa
 import sklearn
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split, KFold, RandomizedSearchCV, GridSearchCV
 from tensorflow.keras.utils import to_categorical
 from tensorflow.keras.models import Sequential, load_model, Model
 from sklearn.calibration import CalibratedClassifierCV
 from sklearn.naive_bayes import GaussianNB
+from sklearn.svm import LinearSVC
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 from sklearn.metrics import accuracy_score, recall_score, precision_score
+from sklearn.experimental import enable_hist_gradient_boosting
+from sklearn.ensemble import GradientBoostingClassifier, HistGradientBoostingClassifier
+from sklearn.linear_model import LogisticRegression, RidgeClassifier, RidgeClassifierCV
+from sklearn.svm import NuSVC
 # from sklearn.utils import all_estimators  
 import pickle  
 import warnings
@@ -43,21 +49,15 @@ print(y_train.shape)    # (1712,)
 print(y_test.shape)     # (429,)
 
 # 모델 구성
-# base_clf = GaussianNB()
-# model = CalibratedClassifierCV(base_estimator=base_clf, cv=8)
-# model = CalibratedClassifierCV(base_estimator=base_clf, cv=6)
-# model = CalibratedClassifierCV(base_estimator=base_clf, cv=10)
-# model = CalibratedClassifierCV(base_estimator=base_clf, cv=9)
-model = CalibratedClassifierCV(cv=8)    # << 시간 엄청 오래 걸리네 중단
-
+# model = RidgeClassifierCV(cv=8)
+# model = RidgeClassifierCV(cv=6)
+model = RidgeClassifierCV(cv=12)
 model.fit(x_train, y_train)
 
 # model & weight save
-# pickle.dump(model, open('E:/nmb/nmb_data/cp/m03_mels_CalibratedCV.data', 'wb')) # wb : write
-# pickle.dump(model, open('E:/nmb/nmb_data/cp/m03_mels_CalibratedCV6.data', 'wb')) # wb : write
-# pickle.dump(model, open('E:/nmb/nmb_data/cp/m03_mels_CalibratedCV10.data', 'wb')) # wb : write
-# pickle.dump(model, open('E:/nmb/nmb_data/cp/m03_mels_CalibratedCV9.data', 'wb')) # wb : write
-pickle.dump(model, open('E:/nmb/nmb_data/cp/m03_mels_CalibratedCV8.data', 'wb')) # wb : write
+# pickle.dump(model, open('E:/nmb/nmb_data/cp/m03_mels_RidgeClassifierCV.data', 'wb')) # wb : write
+# pickle.dump(model, open('E:/nmb/nmb_data/cp/m03_mels_RidgeClassifierCV6.data', 'wb')) # wb : write
+pickle.dump(model, open('E:/nmb/nmb_data/cp/m03_mels_RidgeClassifierCV12.data', 'wb')) # wb : write
 print("== save complete ==")
 
 # evaluate
@@ -97,94 +97,66 @@ print("time >> " , time)    # time >
 
 '''
 cv=8
-accuracy :       0.7249417249417249
-recall :         0.6439024390243903
-precision :      0.7457627118644068
-
-E:\nmb\nmb_data\pred_voice\FY1.wav 남자입니다.                      
+accuracy :       0.9487179487179487
+recall :         0.9512195121951219
+precision :      0.9420289855072463     
+E:\nmb\nmb_data\pred_voice\FY1.wav 여자입니다.                      (o)
 E:\nmb\nmb_data\pred_voice\MZ1.wav 남자입니다.                      (o)
 E:\nmb\nmb_data\pred_voice\friendvoice_F4.wav 여자입니다.           (o)
 E:\nmb\nmb_data\pred_voice\friendvoice_M3.wav 남자입니다.           (o)
 E:\nmb\nmb_data\pred_voice\friendvoice_M4.wav 남자입니다.           (o)
 E:\nmb\nmb_data\pred_voice\friendvoice_M5.wav 남자입니다.           (o)
-E:\nmb\nmb_data\pred_voice\friendvoice_M6.wav 여자입니다.           
-E:\nmb\nmb_data\pred_voice\friendvoice_M7.wav 여자입니다.           
-E:\nmb\nmb_data\pred_voice\testvoice_F1(clear).wav 남자입니다.      
-E:\nmb\nmb_data\pred_voice\testvoice_F1_high(clear).wav 남자입니다. 
+E:\nmb\nmb_data\pred_voice\friendvoice_M6.wav 남자입니다.           (o)
+E:\nmb\nmb_data\pred_voice\friendvoice_M7.wav 남자입니다.           (o)
+E:\nmb\nmb_data\pred_voice\testvoice_F1(clear).wav 여자입니다.      (o)
+E:\nmb\nmb_data\pred_voice\testvoice_F1_high(clear).wav 여자입니다. (o)
 E:\nmb\nmb_data\pred_voice\testvoice_F2(clear).wav 여자입니다.      (o)
-E:\nmb\nmb_data\pred_voice\testvoice_F3(clear).wav 남자입니다.      
-E:\nmb\nmb_data\pred_voice\testvoice_M1(clear).wav 여자입니다.      
+E:\nmb\nmb_data\pred_voice\testvoice_F3(clear).wav 남자입니다.
+E:\nmb\nmb_data\pred_voice\testvoice_M1(clear).wav 여자입니다.
 E:\nmb\nmb_data\pred_voice\testvoice_M2(clear).wav 남자입니다.      (o)
-E:\nmb\nmb_data\pred_voice\testvoice_M2_low(clear).wav 여자입니다.  
-정답률 7/15
-time >>  0:00:18.023614
------------------------------------------------------------------------
+E:\nmb\nmb_data\pred_voice\testvoice_M2_low(clear).wav 남자입니다.  (o)
+time >>  0:00:45.841708
+---------------------------------------------------------------------
 cv=6
-accuracy :       0.7226107226107226
-recall :         0.6487804878048781
-precision :      0.7388888888888889
-
-E:\nmb\nmb_data\pred_voice\FY1.wav 남자입니다.
+accuracy :       0.9487179487179487
+recall :         0.9512195121951219
+precision :      0.9420289855072463
+E:\nmb\nmb_data\pred_voice\FY1.wav 여자입니다.                      (o)
 E:\nmb\nmb_data\pred_voice\MZ1.wav 남자입니다.                      (o)
-E:\nmb\nmb_data\pred_voice\friendvoice_F4.wav 남자입니다.
+E:\nmb\nmb_data\pred_voice\friendvoice_F4.wav 여자입니다.           (o)
 E:\nmb\nmb_data\pred_voice\friendvoice_M3.wav 남자입니다.           (o)
 E:\nmb\nmb_data\pred_voice\friendvoice_M4.wav 남자입니다.           (o)
 E:\nmb\nmb_data\pred_voice\friendvoice_M5.wav 남자입니다.           (o)
-E:\nmb\nmb_data\pred_voice\friendvoice_M6.wav 여자입니다.
-E:\nmb\nmb_data\pred_voice\friendvoice_M7.wav 여자입니다.
-E:\nmb\nmb_data\pred_voice\testvoice_F1(clear).wav 남자입니다.
-E:\nmb\nmb_data\pred_voice\testvoice_F1_high(clear).wav 남자입니다.
-E:\nmb\nmb_data\pred_voice\testvoice_F2(clear).wav 여자입니다.
-E:\nmb\nmb_data\pred_voice\testvoice_F3(clear).wav 남자입니다.
-E:\nmb\nmb_data\pred_voice\testvoice_M1(clear).wav 여자입니다.
-E:\nmb\nmb_data\pred_voice\testvoice_M2(clear).wav 남자입니다.      (o)
-E:\nmb\nmb_data\pred_voice\testvoice_M2_low(clear).wav 여자입니다.
-정답률 5/15
-time >>  0:00:14.562209
------------------------------------------------------------------------
-cv=10
-accuracy :       0.7319347319347319
-recall :         0.6439024390243903
-precision :      0.7586206896551724
-
-E:\nmb\nmb_data\pred_voice\FY1.wav 남자입니다.
-E:\nmb\nmb_data\pred_voice\MZ1.wav 남자입니다.                      (o)
-E:\nmb\nmb_data\pred_voice\friendvoice_F4.wav 남자입니다.   
-E:\nmb\nmb_data\pred_voice\friendvoice_M3.wav 남자입니다.           (o)
-E:\nmb\nmb_data\pred_voice\friendvoice_M4.wav 남자입니다.           (o)
-E:\nmb\nmb_data\pred_voice\friendvoice_M5.wav 남자입니다.           (o)
-E:\nmb\nmb_data\pred_voice\friendvoice_M6.wav 여자입니다.       
-E:\nmb\nmb_data\pred_voice\friendvoice_M7.wav 여자입니다.   
-E:\nmb\nmb_data\pred_voice\testvoice_F1(clear).wav 남자입니다.
-E:\nmb\nmb_data\pred_voice\testvoice_F1_high(clear).wav 남자입니다.
+E:\nmb\nmb_data\pred_voice\friendvoice_M6.wav 남자입니다.           (o)
+E:\nmb\nmb_data\pred_voice\friendvoice_M7.wav 남자입니다.           (o)
+E:\nmb\nmb_data\pred_voice\testvoice_F1(clear).wav 여자입니다.      (o)
+E:\nmb\nmb_data\pred_voice\testvoice_F1_high(clear).wav 여자입니다. (o)
 E:\nmb\nmb_data\pred_voice\testvoice_F2(clear).wav 여자입니다.      (o)
 E:\nmb\nmb_data\pred_voice\testvoice_F3(clear).wav 남자입니다.
 E:\nmb\nmb_data\pred_voice\testvoice_M1(clear).wav 여자입니다.
 E:\nmb\nmb_data\pred_voice\testvoice_M2(clear).wav 남자입니다.      (o)
-E:\nmb\nmb_data\pred_voice\testvoice_M2_low(clear).wav 여자입니다.
-정답률 6/15
-time >>  0:00:21.614832
------------------------------------------------------------------------
-cv=9
-accuracy :       0.7249417249417249
-recall :         0.6341463414634146
-precision :      0.7514450867052023
-
-E:\nmb\nmb_data\pred_voice\FY1.wav 남자입니다.
+E:\nmb\nmb_data\pred_voice\testvoice_M2_low(clear).wav 남자입니다.  (o)
+time >>  0:00:40.686707
+---------------------------------------------------------------------
+cv=12
+accuracy :       0.9487179487179487
+recall :         0.9512195121951219
+precision :      0.9420289855072463
+E:\nmb\nmb_data\pred_voice\FY1.wav 여자입니다.                      (o)
 E:\nmb\nmb_data\pred_voice\MZ1.wav 남자입니다.                      (o)
-E:\nmb\nmb_data\pred_voice\friendvoice_F4.wav 남자입니다.
+E:\nmb\nmb_data\pred_voice\friendvoice_F4.wav 여자입니다.           (o)
 E:\nmb\nmb_data\pred_voice\friendvoice_M3.wav 남자입니다.           (o)
 E:\nmb\nmb_data\pred_voice\friendvoice_M4.wav 남자입니다.           (o)
 E:\nmb\nmb_data\pred_voice\friendvoice_M5.wav 남자입니다.           (o)
-E:\nmb\nmb_data\pred_voice\friendvoice_M6.wav 여자입니다.
-E:\nmb\nmb_data\pred_voice\friendvoice_M7.wav 여자입니다.
-E:\nmb\nmb_data\pred_voice\testvoice_F1(clear).wav 남자입니다.
-E:\nmb\nmb_data\pred_voice\testvoice_F1_high(clear).wav 남자입니다.
+E:\nmb\nmb_data\pred_voice\friendvoice_M6.wav 남자입니다.           (o)
+E:\nmb\nmb_data\pred_voice\friendvoice_M7.wav 남자입니다.           (o)
+E:\nmb\nmb_data\pred_voice\testvoice_F1(clear).wav 여자입니다.      (o)
+E:\nmb\nmb_data\pred_voice\testvoice_F1_high(clear).wav 여자입니다. (o)
 E:\nmb\nmb_data\pred_voice\testvoice_F2(clear).wav 여자입니다.      (o)
 E:\nmb\nmb_data\pred_voice\testvoice_F3(clear).wav 남자입니다.
 E:\nmb\nmb_data\pred_voice\testvoice_M1(clear).wav 여자입니다.
 E:\nmb\nmb_data\pred_voice\testvoice_M2(clear).wav 남자입니다.      (o)
-E:\nmb\nmb_data\pred_voice\testvoice_M2_low(clear).wav 여자입니다.
-정답률 6/15
-time >>  0:00:20.216947
+E:\nmb\nmb_data\pred_voice\testvoice_M2_low(clear).wav 남자입니다.  (o)
+정답률 13/15
+time >>  0:01:14.018294
 '''
