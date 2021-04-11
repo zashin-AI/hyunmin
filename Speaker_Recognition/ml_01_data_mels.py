@@ -47,16 +47,10 @@ for folder in total :
         length = (len(y) / sr)
         if length < 5.0 : pass
         else:
-            mfccs = librosa.feature.mfcc(y, sr=sr, n_mfcc=20, n_fft=512, hop_length=128)
-            mfccs = normalize(mfccs, axis=1)
+            mels = librosa.feature.melspectrogram(y, sr=sr, n_fft=512, hop_length=128, n_mels=128)
+            mels = librosa.amplitude_to_db(mels, ref=np.max)
 
-            # plt.figure(figsize=(10,4))
-            # plt.title('MFCCs')
-            # librosa.display.specshow(mfccs, sr=sr, x_axis='time')
-            # plt.colorbar()
-            # plt.show()
-
-            dataset.append(mfccs)
+            dataset.append(mels)
             label.append(index)
     
     dataset = np.array(dataset)
@@ -64,9 +58,9 @@ for folder in total :
     print(dataset.shape)    
     print(label.shape)      
 
-    np.save(f'E:/nmb/nmb_data/npy/brandnew_{index}_mfccs.npy', arr=dataset)
+    np.save(f'E:/nmb/nmb_data/npy/brandnew_{index}_mels.npy', arr=dataset)
     print("dataset save")
-    np.save(f'E:/nmb/nmb_data/npy/brandnew_{index}_mfccs_label.npy', arr=label)
+    np.save(f'E:/nmb/nmb_data/npy/brandnew_{index}_mels_label.npy', arr=label)
     print("label save")
 
     index += 1 
@@ -75,17 +69,17 @@ for folder in total :
 print('=====save done=====') 
 # ------------------------------------------------------
 
-# F_mfccs (label 0)
-# (1104, 20, 862)
+# F_mels (label 0)
+# (1104, 128, 862)
 # (1104,)
 
-# M_mfccs (label 1)
-# (1037, 20, 862)
+# M_mels (label 1)
+# (1037, 128, 862)
 # (1037,)
 
 # ------------------------------------------------------
 
-M = np.load('E:/nmb/nmb_data/npy/brandnew_0_mfccs.npy')
-print(M.shape)  # (1104, 20, 862)
-F = np.load('E:/nmb/nmb_data/npy/brandnew_1_mfccs.npy')
-print(F.shape)  # (1037, 20, 862)
+F = np.load('E:/nmb/nmb_data/npy/brandnew_0_mels.npy')
+print(F.shape)  # (1104, 128, 862)
+M = np.load('E:/nmb/nmb_data/npy/brandnew_1_mels.npy')
+print(M.shape)  # (1037, 128, 862)
