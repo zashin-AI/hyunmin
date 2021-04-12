@@ -40,5 +40,35 @@ model = sklearn.svm.NuSVC(*, nu=0.5, kernel='rbf', degree=3, gamma='scale', coef
 ```
 
 # 3. GradientBosstingClassifier
+```python
+model = sklearn.ensemble.GradientBoostingClassifier(*, loss='deviance', learning_rate=0.1, n_estimators=100, subsample=1.0,
+                                                    criterion='friedman_mse', min_samples_split=2, min_samples_leaf=1,
+                                                    min_weight_fraction_leaf=0.0, max_depth=3, min_impurity_decrease=0.0,
+                                                    min_impurity_split=None, init=None, random_state=None, max_features=None,
+                                                    verbose=0, max_leaf_nodes=None, warm_start=False, validation_fraction=0.1,
+                                                    n_iter_no_change=None, tol=0.0001, ccp_alpha=0.0)
+```
+* Gradient Boosting for classification
+* 여러 개의 decision tree를 묶어 강력한 model을 만드는 ensemble기법
+* 이전 tree의 오차를 보완하는 방식으로 tree를 만듭니다.
+* 랜덤 포레스트처럼 tree를 여러 개 만든다. 
+   + 단, 한꺼번에 tree를 만들지 않고 tree를 하나 만든 다음 그것의 오차를 줄이는 방법으로 tree를 만드는 단계로 진행한다.
+* gradient boosting : 무작위성이 없어 powerful한 pre-pruning이 사용되며 1~5 정도 깊이의 tree를 사용하므로 메모리를 적게 사용하고 예측도 빠릅니다. gradient boosting은 이런 얕은 트리들을 계속해서 연결해나가는 것 [링크] (https://woolulu.tistory.com/30)
+* criterion=’Friedman mse’ : mse 업그레이드 버전, mse 나 mae 보다 더 나은 근사치를 제공할 수 있기 때문에 일반적으로 더 좋다. [링크](https://wikidocs.net/26289)
+* 파라미터 n_estimators  : tree의 개수
+  + 주로 깊이를 작게 하고 tree의 개수를 늘리는 전략을 많이 취한다.
+* 파라미터 learning rate : 값이 클수록 복잡한 모델을 만든다. 이전에 만든 tree의 오류에 기반하여 얼마나 많이 수정해 나갈지의 비율을 의미한다. [링크](https://jfun.tistory.com/122)
+* boosting : 알고리즘을 학습하면서 tree를 더해가는 과정  
 
 # 4. HistGradientBosstingClassifier
+```python
+model = sklearn.ensemble.HistGradientBoostingClassifier(loss='auto', *, learning_rate=0.1, max_iter=100, max_leaf_nodes=31,
+                                                        max_depth=None, min_samples_leaf=20, l2_regularization=0.0, max_bins=255,
+                                                        categorical_features=None, monotonic_cst=None, warm_start=False,
+                                                        early_stopping='auto', scoring='loss', validation_fraction=0.1,
+                                                        n_iter_no_change=10, tol=1e-07, verbose=0, random_state=None)
+```
+* Histogram-based Gradient Boosting Classification Tree
+* Gradient Boosting Classification Tree보다 큰 데이터들을 빠르게 분석할 수 있다.
+* 훈련을 하는 동안 결측치가 있을 때, 왼쪽 또는 오른쪽 child로 이동해야 하는지 여부를 각 분학 지점에서 학습을 한다.
+*  gradient boosting ensemble 에서 보다 빠르게 결정 트리를 훈련시킬 수 있다. (training faster decision trees used in the gradient boosting ensemble.)
