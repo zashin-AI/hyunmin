@@ -50,7 +50,7 @@ model = sklearn.svm.NuSVC(*, nu=0.5, kernel='rbf', degree=3, gamma='scale', coef
   + bound on the fraction of margin errors and a lower bound of the fraction of support vectors (마진 에러 & 서포트 벡터 부분) (링크)
   + 예) 0.05라면 5% 가 잘못 분류되는 것이면서 & 5%가 최소 서포트 벡터임.
 
-# 3. GradientBosstingClassifier
+# 3. GradientBoostingClassifier
 [공식문서](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.GradientBoostingClassifier.html)
 ```python
 model = sklearn.ensemble.GradientBoostingClassifier(*, loss='deviance', learning_rate=0.1, n_estimators=100, subsample=1.0,
@@ -72,7 +72,7 @@ model = sklearn.ensemble.GradientBoostingClassifier(*, loss='deviance', learning
 * 파라미터 learning rate : 값이 클수록 복잡한 모델을 만든다. 이전에 만든 tree의 오류에 기반하여 얼마나 많이 수정해 나갈지의 비율을 의미한다. [링크](https://jfun.tistory.com/122)
 * boosting : 알고리즘을 학습하면서 tree를 더해가는 과정  
 
-# 4. HistGradientBosstingClassifier
+# 4. HistGradientBoostingClassifier
 [공식문서](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.HistGradientBoostingClassifier.html)
 ```python
 model = sklearn.ensemble.HistGradientBoostingClassifier(loss='auto', *, learning_rate=0.1, max_iter=100, max_leaf_nodes=31,
