@@ -8,6 +8,7 @@ Melspectrogram 데이터를 _allAlgorithms = all_estimators(type_filter='classif
 이 중에서 정답률이 높았던 모델을 더 자세히 조사해보았다.    
 
 # 1. Sklearn.svm.SVC
+[공식문서](https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html)
 ```python
 model = sklearn.svm.SVC(*, C=1.0, kernel='rbf', degree=3, gamma='scale', coef0=0.0, 
                     shrinking=True, probability=False, tol=0.001, cache_size=200, class_weight=None, 
@@ -34,14 +35,23 @@ model = sklearn.svm.SVC(*, C=1.0, kernel='rbf', degree=3, gamma='scale', coef0=0
 * gamma : 결정 경계를 얼마나 유연하게 그을 것인지
   + gamma 높으면 : 결정 경계를 구불구불 긋는다. 오버피팅을 초래할 수 있음
   + gamma 낮추면 : 결정 경계를 직선에 가깝게 긋는다. 언더피팅을 초래할 수 있음
+ 
 # 2. NuSVC
+[공식문서](https://scikit-learn.org/stable/modules/generated/sklearn.svm.NuSVC.html)
 ```python
 model = sklearn.svm.NuSVC(*, nu=0.5, kernel='rbf', degree=3, gamma='scale', coef0=0.0, 
                           shrinking=True, probability=False, tol=0.001, cache_size=200, class_weight=None,
                           verbose=False, max_iter=- 1, decision_function_shape='ovr', break_ties=False, random_state=None)
 ```
+* Nu-Support Vector Classification
+* SVC와 비슷하지만  null support vectors의 개수를 조절한다.
+* 파라미터 nu (default=0.5) : 서포트 벡터를 조절한다.
+  + 0과 1사이로 지정된다.
+  + bound on the fraction of margin errors and a lower bound of the fraction of support vectors (마진 에러 & 서포트 벡터 부분) (링크)
+  + 예) 0.05라면 5% 가 잘못 분류되는 것이면서 & 5%가 최소 서포트 벡터임.
 
 # 3. GradientBosstingClassifier
+[공식문서](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.GradientBoostingClassifier.html)
 ```python
 model = sklearn.ensemble.GradientBoostingClassifier(*, loss='deviance', learning_rate=0.1, n_estimators=100, subsample=1.0,
                                                     criterion='friedman_mse', min_samples_split=2, min_samples_leaf=1,
@@ -63,6 +73,7 @@ model = sklearn.ensemble.GradientBoostingClassifier(*, loss='deviance', learning
 * boosting : 알고리즘을 학습하면서 tree를 더해가는 과정  
 
 # 4. HistGradientBosstingClassifier
+[공식문서](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.HistGradientBoostingClassifier.html)
 ```python
 model = sklearn.ensemble.HistGradientBoostingClassifier(loss='auto', *, learning_rate=0.1, max_iter=100, max_leaf_nodes=31,
                                                         max_depth=None, min_samples_leaf=20, l2_regularization=0.0, max_bins=255,
