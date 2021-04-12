@@ -15,7 +15,7 @@ model = sklearn.svm.SVC(*, C=1.0, kernel='rbf', degree=3, gamma='scale', coef0=0
 ```
 * C-Support Vector Classification
 * libsvm으로부터 나온 모델
-
+![이미지 001](https://user-images.githubusercontent.com/70581043/114386231-ea823400-9bcb-11eb-852f-c9ea4085df74.png)
   + **SVM (Support Vector Machine)**
   + 데이터 분석 중 분류에 이용되며 지도 학습 방식의 모델
   + **결정 경계** : 분류를 위한 기준 선을 정의하는 모델 , 분류되지 않은 새로운 점이 나타나면 경계의 어느 쪽에 속하는지 확인해서 분류 과제를 수행할 수 있다.
@@ -23,6 +23,8 @@ model = sklearn.svm.SVC(*, C=1.0, kernel='rbf', degree=3, gamma='scale', coef0=0
   + 최적의 결정 경계 : 마진(점선으로부터 결정 경계까지의 거리)을 최대화하는 것 , 두 점들 사이의 경계가 뚜렷하다는 것을 의미함 
 * 멀티클래스 지원은 일대일 체계에 따라 처리한다( The multiclass support is handled according to a one-vs-one scheme. )
 * C : 오류를 어느 정도 허용할 것인지
+  ![이미지 002](https://user-images.githubusercontent.com/70581043/114386290-fcfc6d80-9bcb-11eb-90d8-784ebb136b13.png)
+
   + C 값이 클수록 : 오류 허용 안함, 포인터와 결정 경계 사이의 거리가 매우 좁다. 오버피팅의 문제가 생길 수 있다.
   + C 값이 작을수록 : 오류 허용함, 포인터와 결정 경계 사이의 거리가 넓다. 언더피팅 문제가 발생할 수 있다.
 * kernel : 직선을 어떤 모양으로 그릴 것인지
