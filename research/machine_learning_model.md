@@ -7,7 +7,7 @@ Melspectrogram 데이터를 _allAlgorithms = all_estimators(type_filter='classif
 
 이 중에서 정답률이 높았던 모델을 더 자세히 조사해보았다.    
 
-# 1. Sklearn.svm.SVC
+# 1. SVC
 [공식문서](https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html)
 ```python
 model = sklearn.svm.SVC(*, C=1.0, kernel='rbf', degree=3, gamma='scale', coef0=0.0, 
