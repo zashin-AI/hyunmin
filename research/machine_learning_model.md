@@ -1,4 +1,4 @@
-Melspectrogram 데이터를 allAlgorithms = all_estimators(type_filter='classifier') 로 돌려봤을 때 가장 좋게 나왔던 모델이다. 
+Melspectrogram 데이터를 _allAlgorithms = all_estimators(type_filter='classifier')_ 로 돌려봤을 때 가장 좋게 나왔던 모델이다. 
 ```python
 0.95 이상 >  CalibratedClassifierCV, LinearDiscriminantAnalysis, LinearSVC, LogisticRegressionCV, SVC    
 0.94 이상 >  GradientBoostingClassifier, HistGradientBoostingClassifier, LogisticRegression, NuSVC, RidgeClassifier, RidgeClassifierCV    
