@@ -14,11 +14,13 @@
 * 예시 ) 모델이 눈이 내릴거라 예측한 날의 수를 실제로 눈이 내린 날의 수로 나눈 값
 * TP / TP + FN
 * 실제 True 인 데이터를 모델이 True라고 인식한 데이터의 수
+![recall](https://user-images.githubusercontent.com/70581043/114492009-a5edab80-9c52-11eb-9e04-cf241bc27c8a.jpg)
 
 # 3. Precision
 * 예시 ) 실제로 눈이 내린 날의 수를 모델이 눈이 내릴거라 예측한 날의 수로 나눈 값
 * TP / TP + FP
 * 모델이 True라고 예측한 데이터 중 실제로 True 인 데이터의 수
+![precision](https://user-images.githubusercontent.com/70581043/114492255-2dd3b580-9c53-11eb-8740-90c970d2e146.jpg)
 
 # 4. F1 score
 * recall score와 precision score 두 지표를 하나의 지표로 만들어준다.
