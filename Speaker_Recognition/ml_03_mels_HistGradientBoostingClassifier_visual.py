@@ -8,17 +8,24 @@ import numpy as np
 import datetime 
 import librosa
 import sklearn
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split, KFold, RandomizedSearchCV, GridSearchCV
 from tensorflow.keras.utils import to_categorical
 from tensorflow.keras.models import Sequential, load_model, Model
 from sklearn.calibration import CalibratedClassifierCV
 from sklearn.naive_bayes import GaussianNB
-from sklearn.svm import LinearSVC, SVC
+from sklearn.svm import LinearSVC
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
-from sklearn.metrics import accuracy_score, recall_score, precision_score, f1_score
+from sklearn.metrics import accuracy_score, recall_score, precision_score
+from sklearn.experimental import enable_hist_gradient_boosting
+from sklearn.ensemble import GradientBoostingClassifier, HistGradientBoostingClassifier
 # from sklearn.utils import all_estimators  
 import pickle  
 import warnings
+import mglearn
+from sklearn.model_selection import learning_curve, ShuffleSplit
+from sklearn.kernel_ridge import KernelRidge
+import matplotlib.pyplot as plt
+
 warnings.filterwarnings('ignore')
 def normalize(x, axis=0):
     return sklearn.preprocessing.minmax_scale(x, axis=axis)
@@ -45,12 +52,27 @@ print(y_train.shape)    # (1712,)
 print(y_test.shape)     # (429,)
 
 # 모델 구성
-model = SVC(verbose=1)
-model.fit(x_train, y_train)
 
+plt.figure(figsize=(10,6))
+model = HistGradientBoostingClassifier(verbose=1)
+
+train_sizes, train_scores_model, test_scores_model = \
+    learning_curve(model, x_train[:100], y_train[:100], train_sizes=np.linspace(0.1, 1.0, 10),
+                   scoring="neg_mean_squared_error", cv=8, shuffle=True, random_state=42)
+
+plt.plot(train_sizes, -test_scores_model.mean(1), 'o-', color="r", label="mse")
+
+plt.xlabel("Train size")
+plt.ylabel("Mean Squared Error")
+plt.title('HistGradientBoostingClassifier')
+plt.legend(loc="best")
+
+plt.show()
+
+# model.fit(x_train, y_train)
 # model & weight save
-pickle.dump(model, open('E:/nmb/nmb_data/cp/m03_mels_SVC.data', 'wb')) # wb : write
-print("== save complete ==")
+# pickle.dump(model, open('E:/nmb/nmb_data/cp/m03_mels_HistGradientBoostingClassifier.data', 'wb')) # wb : write
+# print("== save complete ==")
 
 # evaluate
 y_pred = model.predict(x_test)
@@ -60,7 +82,6 @@ y_pred = model.predict(x_test)
 accuracy = accuracy_score(y_test, y_pred)
 recall = recall_score(y_test, y_pred)
 precision = precision_score(y_test, y_pred)
-f1 = f1_score(y_test, y_pred)
 
 print("accuracy : \t", accuracy)
 print("recall : \t", recall)
@@ -89,11 +110,10 @@ time = end_now - start_now
 print("time >> " , time)    # time >
 
 '''
-(default)
-[LibSVM]== save complete ==
-accuracy :       0.951048951048951
-recall :         0.9853658536585366
-precision :      0.9181818181818182
+model = HistGradientBoostingClassifier(verbose=1)
+accuracy :       0.9440559440559441
+recall :         0.9804878048780488
+precision :      0.9095022624434389
 E:\nmb\nmb_data\pred_voice\FY1.wav 여자입니다.                      (o)
 E:\nmb\nmb_data\pred_voice\MZ1.wav 남자입니다.                      (o)
 E:\nmb\nmb_data\pred_voice\friendvoice_F4.wav 여자입니다.           (o)
@@ -102,7 +122,7 @@ E:\nmb\nmb_data\pred_voice\friendvoice_M4.wav 남자입니다.           (o)
 E:\nmb\nmb_data\pred_voice\friendvoice_M5.wav 남자입니다.           (o)
 E:\nmb\nmb_data\pred_voice\friendvoice_M6.wav 남자입니다.           (o)
 E:\nmb\nmb_data\pred_voice\friendvoice_M7.wav 남자입니다.           (o)
-E:\nmb\nmb_data\pred_voice\testvoice_F1(clear).wav 여자입니다.      (o)
+E:\nmb\nmb_data\pred_voice\testvoice_F1(clear).wav 여자입니다.      (o)    
 E:\nmb\nmb_data\pred_voice\testvoice_F1_high(clear).wav 여자입니다. (o)
 E:\nmb\nmb_data\pred_voice\testvoice_F2(clear).wav 여자입니다.      (o)
 E:\nmb\nmb_data\pred_voice\testvoice_F3(clear).wav 여자입니다.      (o)
@@ -110,5 +130,5 @@ E:\nmb\nmb_data\pred_voice\testvoice_M1(clear).wav 남자입니다.      (o)
 E:\nmb\nmb_data\pred_voice\testvoice_M2(clear).wav 남자입니다.      (o)
 E:\nmb\nmb_data\pred_voice\testvoice_M2_low(clear).wav 남자입니다.  (o)
 정답률 15/15
-time >>  0:03:23.900506
+time >>  0:29:41.526181
 '''
