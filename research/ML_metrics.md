@@ -26,3 +26,5 @@
 * recall score와 precision score 두 지표를 하나의 지표로 만들어준다.
 * recall, precision의 조화평균   
 ![이미지 001](https://user-images.githubusercontent.com/70581043/114491407-8efa8980-9c51-11eb-8179-9ea8321b24ce.png)
+
+[참고 사이트](https://eunsukimme.github.io/ml/2019/10/21/Accuracy-Recall-Precision-F1-score/)
