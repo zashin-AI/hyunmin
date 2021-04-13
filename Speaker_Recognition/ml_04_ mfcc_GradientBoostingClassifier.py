@@ -18,7 +18,7 @@ from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 from sklearn.linear_model import LogisticRegressionCV
 from sklearn.ensemble import ExtraTreesClassifier
 from sklearn.ensemble import GradientBoostingClassifier
-from sklearn.metrics import accuracy_score, recall_score, precision_score
+from sklearn.metrics import accuracy_score, recall_score, precision_score, f1_score
 # from sklearn.utils import all_estimators  
 import pickle  
 import warnings
@@ -48,25 +48,32 @@ print(y_train.shape)    # (1712,)
 print(y_test.shape)     # (429,)
 
 # 모델 구성
-model = GradientBoostingClassifier(verbose=1)
-model.fit(x_train, y_train)
+# model = GradientBoostingClassifier(verbose=1)
+# model.fit(x_train, y_train)
 
 # model & weight save
-pickle.dump(model, open('E:/nmb/nmb_data/cp/m04_mfccs_GradientBoostingClassifier.data', 'wb')) # wb : write
-print("== save complete ==")
+# pickle.dump(model, open('E:/nmb/nmb_data/cp/m04_mfccs_GradientBoostingClassifier.data', 'wb')) # wb : write
+# print("== save complete ==")
+
+# model load
+model = pickle.load(open('E:/nmb/nmb_data/cp/m04_mfccs_GradientBoostingClassifier.data', 'rb'))  # rb : read
+# time >>  0:00:02.511074
 
 # evaluate
 y_pred = model.predict(x_test)
 # print(y_pred[:100])
 # print(y_pred[100:])
 
+
 accuracy = accuracy_score(y_test, y_pred)
 recall = recall_score(y_test, y_pred)
 precision = precision_score(y_test, y_pred)
+f1 = f1_score(y_test, y_pred)
 
 print("accuracy : \t", accuracy)
 print("recall : \t", recall)
 print("precision : \t", precision)
+print("f1 : \t", f1)
 
 # predict 데이터
 pred_pathAudio = 'E:/nmb/nmb_data/pred_voice/'
@@ -94,6 +101,7 @@ print("time >> " , time)    # time >
 accuracy :       0.9347319347319347
 recall :         0.9170731707317074
 precision :      0.9447236180904522
+f1 :             0.9306930693069306
 E:\nmb\nmb_data\pred_voice\FY1.wav 남자입니다.
 E:\nmb\nmb_data\pred_voice\MZ1.wav 남자입니다.                      (o)
 E:\nmb\nmb_data\pred_voice\friendvoice_F4.wav 남자입니다.

@@ -52,7 +52,7 @@ model = LogisticRegression(verbose=1)
 model.fit(x_train, y_train)
 
 # model & weight save
-pickle.dump(model, open('E:/nmb/nmb_data/cp/m03_mels_LogisticRegression.data', 'wb')) # wb : write
+# pickle.dump(model, open('E:/nmb/nmb_data/cp/m03_mels_LogisticRegression.data', 'wb')) # wb : write
 print("== save complete ==")
 
 # evaluate

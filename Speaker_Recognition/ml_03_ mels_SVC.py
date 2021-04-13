@@ -45,8 +45,8 @@ print(y_train.shape)    # (1712,)
 print(y_test.shape)     # (429,)
 
 # 모델 구성
-# model = SVC(verbose=1)
-# model.fit(x_train, y_train)
+model = SVC(verbose=1)
+model.fit(x_train, y_train)
 
 # model & weight save
 # pickle.dump(model, open('E:/nmb/nmb_data/cp/m03_mels_SVC.data', 'wb')) # wb : write

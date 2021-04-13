@@ -58,6 +58,19 @@ for (name, algorithm) in allAlgorithms :    # 분류형 모델 전체를 반복�
         # continue    # 정지시키지 않고 계속 진행시키겠다.
         print(name, "은 없는 모델") # 예외처리한 모델 이름을 출력 
 
+
+
+allAlgorithms = all_estimators(type_filter='classifier')
+
+for (name, algorithm) in allAlgorithms :    
+    try :   
+        model = algorithm()
+        model.fit(x_train, y_train)
+        y_pred = model.predict(x_test)
+        print(name, '의 정답률 : ', accuracy_score(y_test, y_pred))
+    except :          
+        print(name, "은 없는 모델") 
+
 end_now = datetime.datetime.now()
 time = end_now - start_now
 print("time >> " , time)    # time >
