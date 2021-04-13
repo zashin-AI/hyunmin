@@ -47,7 +47,7 @@ print(y_test.shape)     # (429,)
 # model = CalibratedClassifierCV(base_estimator=base_clf, cv=8)
 # model = CalibratedClassifierCV(base_estimator=base_clf, cv=6)
 # model = CalibratedClassifierCV(base_estimator=base_clf, cv=10)
-# model = CalibratedClassifierCV(base_estimator=base_clf, cv=9)
+# model = CalibratedClassifierCV(cv=9)
 model = CalibratedClassifierCV(cv=8)    # << 시간 엄청 오래 걸리네 중단
 
 model.fit(x_train, y_train)

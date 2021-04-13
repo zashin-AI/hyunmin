@@ -15,7 +15,7 @@ from sklearn.calibration import CalibratedClassifierCV
 from sklearn.naive_bayes import GaussianNB
 from sklearn.svm import LinearSVC, SVC
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
-from sklearn.metrics import accuracy_score, recall_score, precision_score
+from sklearn.metrics import accuracy_score, recall_score, precision_score, f1_score
 import mglearn
 from sklearn.model_selection import learning_curve, ShuffleSplit
 from sklearn.kernel_ridge import KernelRidge
@@ -52,6 +52,7 @@ print(y_test.shape)     # (429,)
 # model = SVC(verbose=1)
 # hist = model.fit(x_train, y_train)
 
+# SVC Visual
 plt.figure(figsize=(10,6))
 model = SVC(verbose=1)
 
@@ -67,93 +68,3 @@ plt.title('SVC')
 plt.legend(loc="best")
 
 plt.show()
-
-# https://scikit-learn.org/stable/auto_examples/miscellaneous/plot_kernel_ridge_regression.html#sphx-glr-auto-examples-miscellaneous-plot-kernel-ridge-regression-py
-# https://dnai-deny.tistory.com/entry/Session-17-%ED%95%99%EC%8A%B5%EA%B3%BC-%EA%B2%80%EC%A6%9D-%EA%B3%A1%EC%84%A0-%EA%B7%B8%EB%A6%AC%EA%B3%A0-%EA%B7%B8%EB%A6%AC%EB%93%9C-%EC%84%9C%EC%B9%98
-
-# decision_function = model.decision_function(x_train)
-# plt.figure(figsize=(10,6))
-# plt.title("SVC default", fontsize=18)
-# ax = plt.gca()
-# xlim = ax.get_xlim()
-# ylim = ax.get_ylim()
-# xx, yy = np.meshgrid(np.linspace(xlim[0], xlim[1], 50),
-#                          np.linspace(ylim[0], ylim[1], 50))
-# Z = model.decision_function(np.c_[xx.ravel(), yy.ravel()])
-# Z = Z.reshape(xx.shape)
-# plt.contour(xx, yy, Z, colors='k', levels=[-1, 0, 1], alpha=0.5,
-#                 linestyles=['--', '-', '--'])
-# plt.tight_layout()
-# plt.show()
-
-# https://scikit-learn.org/stable/auto_examples/svm/plot_linearsvc_support_vectors.html
-
-# plt.figure(figsize=[10,8])
-# mglearn.plots.plot_2d_classification(model, x_train, eps=0.5, cm='spring')
-# mglearn.discrete_scatter(x_train[:,0], x_train[:,1], y_train)
-# ValueError: X.shape[1] = 2 should be equal to 110336, the number of features at training time
-# https://jfun.tistory.com/105
-
-# model & weight save
-# pickle.dump(model, open('E:/nmb/nmb_data/cp/m03_mels_SVC.data', 'wb')) # wb : write
-# print("== save complete ==")
-
-# evaluate
-y_pred = model.predict(x_test)
-# print(y_pred[:100])
-# print(y_pred[100:])
-
-accuracy = accuracy_score(y_test, y_pred)
-recall = recall_score(y_test, y_pred)
-precision = precision_score(y_test, y_pred)
-
-print("accuracy : \t", accuracy)
-print("recall : \t", recall)
-print("precision : \t", precision)
-'''
-# predict 데이터
-pred_pathAudio = 'E:/nmb/nmb_data/pred_voice/'
-files = librosa.util.find_files(pred_pathAudio, ext=['wav'])
-files = np.asarray(files)
-for file in files:   
-    y, sr = librosa.load(file, sr=22050) 
-    pred_mels = librosa.feature.melspectrogram(y, sr=sr, n_fft=512, hop_length=128, n_mels=128)
-    pred_mels = librosa.amplitude_to_db(pred_mels, ref=np.max)
-    pred_mels = pred_mels.reshape(1, pred_mels.shape[0] * pred_mels.shape[1])
-    # print(pred_mels.shape)  # (1, 110336)
-    y_pred = model.predict(pred_mels)
-    # print(y_pred)
-    if y_pred == 0 :                    # label 0
-        print(file, '여자입니다.')
-    else:                               # label 1
-        print(file, '남자입니다.')
-
-
-end_now = datetime.datetime.now()
-time = end_now - start_now
-print("time >> " , time)    # time >
-'''
-'''
-(default)
-[LibSVM]== save complete ==
-accuracy :       0.951048951048951
-recall :         0.9853658536585366
-precision :      0.9181818181818182
-E:\nmb\nmb_data\pred_voice\FY1.wav 여자입니다.                      (o)
-E:\nmb\nmb_data\pred_voice\MZ1.wav 남자입니다.                      (o)
-E:\nmb\nmb_data\pred_voice\friendvoice_F4.wav 여자입니다.           (o)
-E:\nmb\nmb_data\pred_voice\friendvoice_M3.wav 남자입니다.           (o)
-E:\nmb\nmb_data\pred_voice\friendvoice_M4.wav 남자입니다.           (o)
-E:\nmb\nmb_data\pred_voice\friendvoice_M5.wav 남자입니다.           (o)
-E:\nmb\nmb_data\pred_voice\friendvoice_M6.wav 남자입니다.           (o)
-E:\nmb\nmb_data\pred_voice\friendvoice_M7.wav 남자입니다.           (o)
-E:\nmb\nmb_data\pred_voice\testvoice_F1(clear).wav 여자입니다.      (o)
-E:\nmb\nmb_data\pred_voice\testvoice_F1_high(clear).wav 여자입니다. (o)
-E:\nmb\nmb_data\pred_voice\testvoice_F2(clear).wav 여자입니다.      (o)
-E:\nmb\nmb_data\pred_voice\testvoice_F3(clear).wav 여자입니다.      (o)
-E:\nmb\nmb_data\pred_voice\testvoice_M1(clear).wav 남자입니다.      (o)
-E:\nmb\nmb_data\pred_voice\testvoice_M2(clear).wav 남자입니다.      (o)
-E:\nmb\nmb_data\pred_voice\testvoice_M2_low(clear).wav 남자입니다.  (o)
-정답률 15/15
-time >>  0:03:23.900506
-'''

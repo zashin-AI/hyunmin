@@ -45,12 +45,16 @@ print(y_train.shape)    # (1712,)
 print(y_test.shape)     # (429,)
 
 # 모델 구성
-model = SVC(verbose=1)
-model.fit(x_train, y_train)
+# model = SVC(verbose=1)
+# model.fit(x_train, y_train)
 
 # model & weight save
-pickle.dump(model, open('E:/nmb/nmb_data/cp/m03_mels_SVC.data', 'wb')) # wb : write
-print("== save complete ==")
+# pickle.dump(model, open('E:/nmb/nmb_data/cp/m03_mels_SVC.data', 'wb')) # wb : write
+# print("== save complete ==")
+
+# model load
+model = pickle.load(open('E:/nmb/nmb_data/cp/m03_mels_SVC.data', 'rb'))  # rb : read
+# time >>  0:01:07.868304
 
 # evaluate
 y_pred = model.predict(x_test)
@@ -65,6 +69,7 @@ f1 = f1_score(y_test, y_pred)
 print("accuracy : \t", accuracy)
 print("recall : \t", recall)
 print("precision : \t", precision)
+print("f1 : \t", f1)
 
 # predict 데이터
 pred_pathAudio = 'E:/nmb/nmb_data/pred_voice/'
@@ -94,6 +99,7 @@ print("time >> " , time)    # time >
 accuracy :       0.951048951048951
 recall :         0.9853658536585366
 precision :      0.9181818181818182
+f1 :             0.9505882352941176
 E:\nmb\nmb_data\pred_voice\FY1.wav 여자입니다.                      (o)
 E:\nmb\nmb_data\pred_voice\MZ1.wav 남자입니다.                      (o)
 E:\nmb\nmb_data\pred_voice\friendvoice_F4.wav 여자입니다.           (o)
