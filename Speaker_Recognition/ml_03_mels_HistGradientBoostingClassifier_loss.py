@@ -8,14 +8,16 @@ import numpy as np
 import datetime 
 import librosa
 import sklearn
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split, KFold, RandomizedSearchCV, GridSearchCV
 from tensorflow.keras.utils import to_categorical
 from tensorflow.keras.models import Sequential, load_model, Model
 from sklearn.calibration import CalibratedClassifierCV
 from sklearn.naive_bayes import GaussianNB
-from sklearn.svm import LinearSVC, SVC
+from sklearn.svm import LinearSVC
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
-from sklearn.metrics import accuracy_score, recall_score, precision_score, f1_score
+from sklearn.metrics import accuracy_score, recall_score, precision_score, f1_score, hamming_loss, hinge_loss, log_loss, mean_squared_error
+from sklearn.experimental import enable_hist_gradient_boosting
+from sklearn.ensemble import GradientBoostingClassifier, HistGradientBoostingClassifier
 # from sklearn.utils import all_estimators  
 import pickle  
 import warnings
@@ -45,16 +47,16 @@ print(y_train.shape)    # (1712,)
 print(y_test.shape)     # (429,)
 
 # 모델 구성
-model = SVC(verbose=1)
-model.fit(x_train, y_train)
+# model = HistGradientBoostingClassifier(verbose=1)
+# model.fit(x_train, y_train)
 
 # model & weight save
-# pickle.dump(model, open('E:/nmb/nmb_data/cp/m03_mels_SVC.data', 'wb')) # wb : write
+# pickle.dump(model, open('E:/nmb/nmb_data/cp/m03_mels_HistGradientBoostingClassifier.data', 'wb')) # wb : write
 # print("== save complete ==")
 
 # model load
-# model = pickle.load(open('E:/nmb/nmb_data/cp/m03_mels_SVC.data', 'rb'))  # rb : read
-# time >>  0:01:07.868304
+model = pickle.load(open('E:/nmb/nmb_data/cp/m03_mels_HistGradientBoostingClassifier.data', 'rb'))  # rb : read
+# time >>  0:30:49.704071
 
 # evaluate
 y_pred = model.predict(x_test)
@@ -65,11 +67,29 @@ accuracy = accuracy_score(y_test, y_pred)
 recall = recall_score(y_test, y_pred)
 precision = precision_score(y_test, y_pred)
 f1 = f1_score(y_test, y_pred)
+hamm_loss = hamming_loss(y_test, y_pred)
+hinge_loss = hinge_loss(y_test, y_pred)
+log_loss = log_loss(y_test, y_pred)
 
 print("accuracy : \t", accuracy)
 print("recall : \t", recall)
 print("precision : \t", precision)
 print("f1 : \t", f1)
+
+print("hamming_loss : \t", hamm_loss)
+print("hinge_loss : \t", hinge_loss)                    # SVM에 적합한 cross-entropy
+print("log_loss : \t", log_loss)                        # Cross-entropy loss와 유사한 개념
+print("mse : \t", mean_squared_error(y_test, y_pred))   # Regression 모델에서의 loss
+
+# accuracy :       0.9440559440559441
+# recall :         0.9804878048780488
+# precision :      0.9095022624434389
+# f1 :             0.943661971830986
+
+# hamming_loss :   0.055944055944055944
+# hinge_loss :     0.578088578088578
+# log_loss :       1.9322765161455957
+# mse :            0.055944055944055944
 
 # predict 데이터
 pred_pathAudio = 'E:/nmb/nmb_data/pred_voice/'
@@ -94,12 +114,11 @@ time = end_now - start_now
 print("time >> " , time)    # time >
 
 '''
-(default)
-[LibSVM]== save complete ==
-accuracy :       0.951048951048951
-recall :         0.9853658536585366
-precision :      0.9181818181818182
-f1 :             0.9505882352941176
+model = HistGradientBoostingClassifier(verbose=1)
+accuracy :       0.9440559440559441
+recall :         0.9804878048780488
+precision :      0.9095022624434389
+f1 :             0.943661971830986
 E:\nmb\nmb_data\pred_voice\FY1.wav 여자입니다.                      (o)
 E:\nmb\nmb_data\pred_voice\MZ1.wav 남자입니다.                      (o)
 E:\nmb\nmb_data\pred_voice\friendvoice_F4.wav 여자입니다.           (o)
@@ -108,7 +127,7 @@ E:\nmb\nmb_data\pred_voice\friendvoice_M4.wav 남자입니다.           (o)
 E:\nmb\nmb_data\pred_voice\friendvoice_M5.wav 남자입니다.           (o)
 E:\nmb\nmb_data\pred_voice\friendvoice_M6.wav 남자입니다.           (o)
 E:\nmb\nmb_data\pred_voice\friendvoice_M7.wav 남자입니다.           (o)
-E:\nmb\nmb_data\pred_voice\testvoice_F1(clear).wav 여자입니다.      (o)
+E:\nmb\nmb_data\pred_voice\testvoice_F1(clear).wav 여자입니다.      (o)    
 E:\nmb\nmb_data\pred_voice\testvoice_F1_high(clear).wav 여자입니다. (o)
 E:\nmb\nmb_data\pred_voice\testvoice_F2(clear).wav 여자입니다.      (o)
 E:\nmb\nmb_data\pred_voice\testvoice_F3(clear).wav 여자입니다.      (o)
@@ -116,5 +135,5 @@ E:\nmb\nmb_data\pred_voice\testvoice_M1(clear).wav 남자입니다.      (o)
 E:\nmb\nmb_data\pred_voice\testvoice_M2(clear).wav 남자입니다.      (o)
 E:\nmb\nmb_data\pred_voice\testvoice_M2_low(clear).wav 남자입니다.  (o)
 정답률 15/15
-time >>  0:03:23.900506
+time >>  0:29:41.526181
 '''

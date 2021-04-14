@@ -16,7 +16,7 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.svm import LinearSVC, SVC
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 from sklearn.linear_model import LogisticRegressionCV
-from sklearn.metrics import accuracy_score, recall_score, precision_score, f1_score
+from sklearn.metrics import accuracy_score, recall_score, precision_score, f1_score, hamming_loss, hinge_loss, log_loss, mean_squared_error
 # from sklearn.utils import all_estimators  
 import pickle  
 import warnings
@@ -46,9 +46,9 @@ print(y_train.shape)    # (1712,)
 print(y_test.shape)     # (429,)
 
 # 모델 구성
-model = LogisticRegressionCV(cv=5, verbose=1)
+# model = LogisticRegressionCV(cv=5, verbose=1)
 # model = LogisticRegressionCV(cv=8, verbose=1)
-model.fit(x_train, y_train)
+# model.fit(x_train, y_train)
 
 # model & weight save
 # pickle.dump(model, open('E:/nmb/nmb_data/cp/m04_mfccs_LogisticRegressionCV5.data', 'wb')) # wb : write
@@ -68,11 +68,29 @@ accuracy = accuracy_score(y_test, y_pred)
 recall = recall_score(y_test, y_pred)
 precision = precision_score(y_test, y_pred)
 f1 = f1_score(y_test, y_pred)
+hamm_loss = hamming_loss(y_test, y_pred)
+hinge_loss = hinge_loss(y_test, y_pred)
+log_loss = log_loss(y_test, y_pred)
 
 print("accuracy : \t", accuracy)
 print("recall : \t", recall)
 print("precision : \t", precision)
 print("f1 : \t", f1)
+
+print("hamming_loss : \t", hamm_loss)
+print("hinge_loss : \t", hinge_loss)                    # SVM에 적합한 cross-entropy
+print("log_loss : \t", log_loss)                        # Cross-entropy loss와 유사한 개념
+print("mse : \t", mean_squared_error(y_test, y_pred))   # Regression 모델에서의 loss
+
+# accuracy :       0.9417249417249417
+# recall :         0.9463414634146341
+# precision :      0.9326923076923077
+# f1 :     0.9394673123486682
+
+# hamming_loss :   0.05827505827505827
+# hinge_loss :     0.5804195804195804
+# log_loss :       2.012775301251259
+# mse :    0.05827505827505827
 
 # predict 데이터
 pred_pathAudio = 'E:/nmb/nmb_data/pred_voice/'
