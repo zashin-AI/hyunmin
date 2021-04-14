@@ -54,11 +54,20 @@ print(y_test.shape)     # (429,)
 plt.figure(figsize=(10,6))
 model = GradientBoostingClassifier(verbose=1)
 
-train_sizes, train_scores_model, test_scores_model = \
-    learning_curve(model, x_train[:200], y_train[:200], train_sizes=np.linspace(0.1, 1.0, 10),
-                   scoring="neg_mean_squared_error", cv=8, shuffle=True, random_state=42)
+# mse
+# train_sizes, train_scores_model, test_scores_model = \
+#     learning_curve(model, x_train[:200], y_train[:200], train_sizes=np.linspace(0.1, 1.0, 10),
+#                    scoring="neg_mean_squared_error", cv=8, shuffle=True, random_state=42)
 
-plt.plot(train_sizes, -test_scores_model.mean(1), 'o-', color="r", label="mse")
+# plt.plot(train_sizes, -test_scores_model.mean(1), 'o-', color="r", label="mse")
+
+# log loss
+train_sizes, train_scores_model, test_scores_model = \
+    learning_curve(model, x_train[:100], y_train[:100], train_sizes=np.linspace(0.1, 1.0, 10),
+                   scoring='neg_log_loss', cv=8, shuffle=True, random_state=42)
+
+plt.plot(train_sizes, -train_scores_model.mean(1), 'o-', color="r", label="log_loss")
+plt.plot(train_sizes, -test_scores_model.mean(1), 'o-', color="g", label="val log_loss")
 
 plt.xlabel("Train size")
 plt.ylabel("Mean Squared Error")
