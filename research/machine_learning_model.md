@@ -65,7 +65,7 @@ model = sklearn.ensemble.GradientBoostingClassifier(*, loss='deviance', learning
 * 이전 tree의 오차를 보완하는 방식으로 tree를 만듭니다.
 * 랜덤 포레스트처럼 tree를 여러 개 만든다. 
    + 단, 한꺼번에 tree를 만들지 않고 tree를 하나 만든 다음 그것의 오차를 줄이는 방법으로 tree를 만드는 단계로 진행한다.
-* gradient boosting : 무작위성이 없어 powerful한 pre-pruning이 사용되며 1~5 정도 깊이의 tree를 사용하므로 메모리를 적게 사용하고 예측도 빠릅니다. gradient boosting은 이런 얕은 트리들을 계속해서 연결해나가는 것 [링크] (https://woolulu.tistory.com/30)
+* gradient boosting : 무작위성이 없어 powerful한 pre-pruning이 사용되며 1~5 정도 깊이의 tree를 사용하므로 메모리를 적게 사용하고 예측도 빠릅니다. gradient boosting은 이런 얕은 트리들을 계속해서 연결해나가는 것 [링크](https://woolulu.tistory.com/30)
 * criterion=’Friedman mse’ : mse 업그레이드 버전, mse 나 mae 보다 더 나은 근사치를 제공할 수 있기 때문에 일반적으로 더 좋다. [링크](https://wikidocs.net/26289)
 * 파라미터 n_estimators  : tree의 개수
   + 주로 깊이를 작게 하고 tree의 개수를 늘리는 전략을 많이 취한다.
@@ -87,7 +87,8 @@ model = sklearn.ensemble.HistGradientBoostingClassifier(loss='auto', *, learning
 *  gradient boosting ensemble 에서 보다 빠르게 결정 트리를 훈련시킬 수 있다. (training faster decision trees used in the gradient boosting ensemble.)
 
 # 5. LogisticRegressionCV
-[공식문서] (https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegressionCV.html)
+[공식문서](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegressionCV.html)
+
 ```python
 model = sklearn.linear_model.LogisticRegressionCV(*, Cs=10, fit_intercept=True, cv=None, dual=False, penalty='l2', 
                                                   scoring=None, solver='lbfgs', tol=0.0001, max_iter=100, class_weight=None, 
@@ -95,5 +96,5 @@ model = sklearn.linear_model.LogisticRegressionCV(*, Cs=10, fit_intercept=True, 
 ```
 * Logistic Regression CV classifier.
 * 이진분류 모델로 많이 사용된다.
-* 회귀를 사용하여 데이터가 어떤 범주에 속할 확률을 0과 1사이의 값으로 예측하고 그 확률에 따라 가능성이 더 높은 범주에 속하는 것으로 분류해주는 지도 학습 알고리즘 [링크] (http://hleecaster.com/ml-logistic-regression-concept/)    
+* 회귀를 사용하여 데이터가 어떤 범주에 속할 확률을 0과 1사이의 값으로 예측하고 그 확률에 따라 가능성이 더 높은 범주에 속하는 것으로 분류해주는 지도 학습 알고리즘 [링크](http://hleecaster.com/ml-logistic-regression-concept/)    
     
