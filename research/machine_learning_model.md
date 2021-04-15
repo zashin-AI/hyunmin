@@ -85,3 +85,15 @@ model = sklearn.ensemble.HistGradientBoostingClassifier(loss='auto', *, learning
 * Gradient Boosting Classification Tree보다 큰 데이터들을 빠르게 분석할 수 있다.
 * 훈련을 하는 동안 결측치가 있을 때, 왼쪽 또는 오른쪽 child로 이동해야 하는지 여부를 각 분학 지점에서 학습을 한다.
 *  gradient boosting ensemble 에서 보다 빠르게 결정 트리를 훈련시킬 수 있다. (training faster decision trees used in the gradient boosting ensemble.)
+
+# 5. LogisticRegressionCV
+[공식문서] (https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegressionCV.html)
+```python
+model = sklearn.linear_model.LogisticRegressionCV(*, Cs=10, fit_intercept=True, cv=None, dual=False, penalty='l2', 
+                                                  scoring=None, solver='lbfgs', tol=0.0001, max_iter=100, class_weight=None, 
+                                                  n_jobs=None, verbose=0, refit=True, intercept_scaling=1.0, multi_class='auto', random_state=None, l1_ratios=None)
+```
+* Logistic Regression CV classifier.
+* 이진분류 모델로 많이 사용된다.
+* 회귀를 사용하여 데이터가 어떤 범주에 속할 확률을 0과 1사이의 값으로 예측하고 그 확률에 따라 가능성이 더 높은 범주에 속하는 것으로 분류해주는 지도 학습 알고리즘 [링크] (http://hleecaster.com/ml-logistic-regression-concept/)    
+    
