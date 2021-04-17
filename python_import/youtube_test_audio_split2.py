@@ -8,11 +8,12 @@ import os.path
 # --------------------------------------------------------------------------------------------
 # 유튜브 저장하기
 output_path = 'E:/nmb/nmb_data/youtube/'
-filename = 'm16'
+filename = 'F42'
 
+"""
 # 먼저 실행 1번
 # 유튜브 전용 인스턴스 생성
-par = 'https://www.youtube.com/watch?v=rkO67Mvhu-A'
+par = 'https://www.youtube.com/watch?v=NIKFt2PjvuM'
 yt = YouTube(par)
 yt.streams.filter()
 
@@ -20,15 +21,13 @@ output_path = 'E:/nmb/nmb_data/youtube/'
 yt.streams.filter().first().download(output_path = output_path)
 print('==== youtube audio save done ====')
 
-
 # 그 다음 실행 2번
 import moviepy.editor as mp
 
 clip = mp.VideoFileClip(output_path + filename + '.mp4')
 clip.audio.write_audiofile(output_path + filename + '.wav')
 print('==== wav save done ====')
-
-
+"""
 
 # --------------------------------------------------------------------------------------------
 # 그 다음 실행 3번
@@ -37,6 +36,6 @@ from voice_handling import voice_split_term
 
 origin_dir = output_path+ filename + '.wav'
 out_dir = output_path
-start = ((2*60)+0)*1000
+start = ((4*60)+19)*1000
 end = start + 5000
 voice_split_term(origin_dir=origin_dir, out_dir=out_dir, start=start, end=end)

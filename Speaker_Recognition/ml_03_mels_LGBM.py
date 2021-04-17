@@ -23,6 +23,7 @@ from sklearn.ensemble import GradientBoostingClassifier, HistGradientBoostingCla
 # from sklearn.utils import all_estimators  
 import pickle  
 import warnings
+
 warnings.filterwarnings('ignore')
 def normalize(x, axis=0):
     return sklearn.preprocessing.minmax_scale(x, axis=axis)
@@ -50,13 +51,7 @@ print(y_test.shape)     # (429,)
 
 # 모델 구성
 model = LGBMClassifier(n_estimators=10000, device='gpu')
-model = XGBClassifier(n_jobs = -1, use_label_encoder=False,
-                    n_estimators=10000, 
-                    tree_method = 'gpu_hist',
-                    # predictor='gpu_predictor'
-                    predictor='cpu_predictor',
-                    gpu_id=0
-)
+
 model.fit(x_train, y_train)
 
 # model & weight save
