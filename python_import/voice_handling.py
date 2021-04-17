@@ -110,3 +110,24 @@ def voice_split_1m(origin_dir, threshold, end_threshold, out_dir):
         start += threshold
     print('==== wav split done ====')
 ###########################################################################
+
+def voice_split_term(origin_dir, out_dir, start, end):
+    '''
+    Args :
+        voice_split_term : 음성 파일에서 원하는 부분을 추출해주는 함수
+        origin_dir : 파일 불러올 경로
+        out_dir : 저장할 경로
+        start : 시작하는 부분(msec)
+        end : 끝나는 부분(msec)
+    '''
+    audio = AudioSegment.from_file(origin_dir)
+    _, w_id = os.path.split(origin_dir)
+    w_id = w_id[:-4]
+    start = start
+    end = end
+    print(start, end)
+    chunk = audio[start:end]
+    filename = out_dir + w_id + '.wav'
+    chunk.export(filename, format='wav')
+    print('==== wav split done ====')
+

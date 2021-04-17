@@ -12,7 +12,7 @@ yt.streams.filter().first().download()
 print('success')
 
 # 그 다음 실행 2번
-import moviepy.editor as mp
+# import moviepy.editor as mp
 
 # clip = mp.VideoFileClip("어느 병원 다녀 소아암 환아를 만난 9살이 하는 말  ODG.mp4")
 # clip.audio.write_audiofile("audio2.wav")
