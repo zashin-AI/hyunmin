@@ -12,8 +12,10 @@ r = sr.Recognizer()
 # sound_file = AudioSegment.from_wav("E:\\nmb\\nmb_data\\youtube\\5s\\M15.wav")
 # sound_file = AudioSegment.from_wav("E:\\nmb\\nmb_data\\youtube\\5s\\M16.wav")
 # sound_file = AudioSegment.from_wav("E:\\nmb\\nmb_data\\youtube\\5s\\M41.wav")
-# sound_file = AudioSegment.from_wav("E:\\nmb\\nmb_data\\predict\\M\\M5_low.wav")
-sound_file = AudioSegment.from_wav("E:\\nmb\\nmb_data\\predict\\M\\M11.wav")
+sound_file = AudioSegment.from_wav("E:\\nmb\\nmb_data\\predict\\M\\M5.wav") 
+    # 거리두기 집
+    # 자리는 비
+# sound_file = AudioSegment.from_wav("E:\\nmb\\nmb_data\\predict\\M\\M11.wav")
     # 되게 좋았던
     # 이야기 전개
 
