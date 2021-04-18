@@ -62,13 +62,17 @@ print(y_test.shape)     # (768,)
 svc = SVC(verbose=1, random_state=42)
 
 param_range = [0.001, 0.01, 0.1, 1.0, 10.0, 100.0]
-param_grid = [{'C': param_range, 'gamma': param_range, 'kernel': ['linear']}, 
-            {'C': param_range, 'gamma': param_range, 'kernel': ['rbf']}]
+# param_grid = [{'C': param_range, 'gamma': param_range, 'kernel': ['linear']}, 
+            # {'C': param_range, 'gamma': param_range, 'kernel': ['rbf']}]
+param_grid = [{'C': param_range, 'kernel': ['linear']}, 
+            {'C': param_range, 'kernel': ['rbf']}]
 
-model = RandomizedSearchCV(svc, param_grid, scoring='accuracy', n_jobs=-1)
+model = RandomizedSearchCV(svc, param_grid, scoring='accuracy', n_jobs=-1, cv=8)
 
 model.fit(x_train, y_train)
 
 print(model.best_score_)
 
 print(model.best_params_)
+
+# 안 돌아감 --
