@@ -37,7 +37,7 @@ def load_data_mfcc(filepath, filename, labels):
         
     if labels == 0:
         out_name = 'female'
-        out_dir = 'c:/nmb/nmb_data/npy/'
+        out_dir = 'E:/nmb/nmb_data/npy/'
         np.save(
             out_dir + out_name + '_mfcc_data.npy',
             arr = dataset
@@ -48,7 +48,7 @@ def load_data_mfcc(filepath, filename, labels):
         )
     elif labels == 1:
         out_name = 'male'
-        out_dir = 'c:/nmb/nmb_data/npy/'
+        out_dir = 'E:/nmb/nmb_data/npy/'
         np.save(
             out_dir + out_name + '_mfcc_data.npy',
             arr = dataset
@@ -104,7 +104,7 @@ def load_data_mel(filepath, filename, labels):
 
     if labels == 0:
         out_name = 'female'
-        out_dir = 'c:/nmb/nmb_data/npy/'
+        out_dir = 'E:/nmb/nmb_data/npy/'
         np.save(
             out_dir + out_name + '_mel_data.npy',
             arr = dataset
@@ -115,7 +115,7 @@ def load_data_mel(filepath, filename, labels):
         )
     elif labels == 1:
         out_name = 'male'
-        out_dir = 'c:/nmb/nmb_data/npy/'
+        out_dir = 'E:/nmb/nmb_data/npy/'
         np.save(
             out_dir + out_name + '_mel_data.npy',
             arr = dataset
