@@ -2,7 +2,7 @@ import numpy as np
 import datetime 
 import librosa
 import sklearn
-from sklearn.model_selection import train_test_split, KFold
+from sklearn.model_selection import train_test_split
 from tensorflow.keras.utils import to_categorical
 from tensorflow.keras.models import Sequential, load_model, Model
 from sklearn.calibration import CalibratedClassifierCV
@@ -64,11 +64,11 @@ x_train = scaler.transform(x_train)
 x_test = scaler.transform(x_test)
 
 # 모델 구성
-model = SVC(verbose=1, C=1, random_state=42, gamma=100)
+model = SVC(verbose=1, C=10, random_state=42, kernel='linear')
 model.fit(x_train, y_train)
 
 # model & weight save
-pickle.dump(model, open('E:/nmb/nmb_data/cp/svc/svc_C1_gam100.data', 'wb')) # wb : write
+pickle.dump(model, open('E:/nmb/nmb_data/cp/svc/svc_C10_linear.data', 'wb')) # wb : write
 # print("== save complete ==")
 
 # model load
@@ -146,72 +146,72 @@ print("time >> " , time)    # time >
 
 import winsound as sd
 def beepsound():
-    fr = 1000    # range : 37 ~ 32767
+    fr = 800    # range : 37 ~ 32767
     du = 500     # 1000 ms ==1second
     sd.Beep(fr, du) # winsound.Beep(frequency, duration)
 
 beepsound()
 
 '''
-[LibSVM]...*..*
-optimization finished, #iter = 5174
-obj = -1527.929897, rho = 0.036895
-nSV = 3072, nBSV = 1498
-Total nSV = 3072
-hamming_loss :   0.5169270833333334
-hinge_loss :     1.0455729166666667
-log_loss :       17.85444227729079
-accuracy :       0.4830729166666667
-recall :         1.0
-precision :      0.4769433465085639
-f1 :     0.6458519179304193
-E:\nmb\nmb_data\predict\F\F1.wav 남자입니다.
-E:\nmb\nmb_data\predict\F\F10.wav 남자입니다.
-E:\nmb\nmb_data\predict\F\F11.wav 남자입니다.
-E:\nmb\nmb_data\predict\F\F12.wav 남자입니다.
-E:\nmb\nmb_data\predict\F\F13.wav 남자입니다.
-E:\nmb\nmb_data\predict\F\F14.wav 남자입니다.
-E:\nmb\nmb_data\predict\F\F15.wav 남자입니다.
-E:\nmb\nmb_data\predict\F\F16.wav 남자입니다.
-E:\nmb\nmb_data\predict\F\F17.wav 남자입니다.
-E:\nmb\nmb_data\predict\F\F18.wav 남자입니다.
-E:\nmb\nmb_data\predict\F\F19.wav 남자입니다.
-E:\nmb\nmb_data\predict\F\F1_high.wav 남자입니다.
-E:\nmb\nmb_data\predict\F\F2.wav 남자입니다.
-E:\nmb\nmb_data\predict\F\F20.wav 남자입니다.
-E:\nmb\nmb_data\predict\F\F21.wav 남자입니다.
-E:\nmb\nmb_data\predict\F\F22.wav 남자입니다.
-E:\nmb\nmb_data\predict\F\F23.wav 남자입니다.
-E:\nmb\nmb_data\predict\F\F24.wav 남자입니다.
-E:\nmb\nmb_data\predict\F\F25.wav 남자입니다.
-E:\nmb\nmb_data\predict\F\F26.wav 남자입니다.
-E:\nmb\nmb_data\predict\F\F27.wav 남자입니다.
-E:\nmb\nmb_data\predict\F\F28.wav 남자입니다.
-E:\nmb\nmb_data\predict\F\F29.wav 남자입니다.
+[LibSVM]....*..*
+optimization finished, #iter = 6838
+obj = -0.579470, rho = -0.174503
+nSV = 1123, nBSV = 0
+Total nSV = 1123
+hamming_loss :   0.09244791666666667
+hinge_loss :     0.62109375
+log_loss :       3.1930774853398525
+accuracy :       0.9075520833333334
+recall :         0.9088397790055248
+precision :      0.896457765667575
+f1 :     0.9026063100137173
+E:\nmb\nmb_data\predict\F\F1.wav 여자입니다.
+E:\nmb\nmb_data\predict\F\F10.wav 여자입니다.
+E:\nmb\nmb_data\predict\F\F11.wav 여자입니다.
+E:\nmb\nmb_data\predict\F\F12.wav 여자입니다.
+E:\nmb\nmb_data\predict\F\F13.wav 여자입니다.
+E:\nmb\nmb_data\predict\F\F14.wav 여자입니다.
+E:\nmb\nmb_data\predict\F\F15.wav 여자입니다.
+E:\nmb\nmb_data\predict\F\F16.wav 여자입니다.
+E:\nmb\nmb_data\predict\F\F17.wav 여자입니다.
+E:\nmb\nmb_data\predict\F\F18.wav 여자입니다.
+E:\nmb\nmb_data\predict\F\F19.wav 여자입니다.
+E:\nmb\nmb_data\predict\F\F1_high.wav 여자입니다.
+E:\nmb\nmb_data\predict\F\F2.wav 여자입니다.
+E:\nmb\nmb_data\predict\F\F20.wav 여자입니다.
+E:\nmb\nmb_data\predict\F\F21.wav 여자입니다.
+E:\nmb\nmb_data\predict\F\F22.wav 여자입니다.
+E:\nmb\nmb_data\predict\F\F23.wav 여자입니다.
+E:\nmb\nmb_data\predict\F\F24.wav 여자입니다.
+E:\nmb\nmb_data\predict\F\F25.wav 여자입니다.
+E:\nmb\nmb_data\predict\F\F26.wav 여자입니다.
+E:\nmb\nmb_data\predict\F\F27.wav 여자입니다.
+E:\nmb\nmb_data\predict\F\F28.wav 여자입니다.
+E:\nmb\nmb_data\predict\F\F29.wav 여자입니다.
 E:\nmb\nmb_data\predict\F\F2_high.wav 남자입니다.
 E:\nmb\nmb_data\predict\F\F2_low.wav 남자입니다.
-E:\nmb\nmb_data\predict\F\F3.wav 남자입니다.
-E:\nmb\nmb_data\predict\F\F30.wav 남자입니다.
-E:\nmb\nmb_data\predict\F\F31.wav 남자입니다.
-E:\nmb\nmb_data\predict\F\F32.wav 남자입니다.
-E:\nmb\nmb_data\predict\F\F33.wav 남자입니다.
-E:\nmb\nmb_data\predict\F\F34.wav 남자입니다.
-E:\nmb\nmb_data\predict\F\F35.wav 남자입니다.
-E:\nmb\nmb_data\predict\F\F36.wav 남자입니다.
-E:\nmb\nmb_data\predict\F\F37.wav 남자입니다.
-E:\nmb\nmb_data\predict\F\F38.wav 남자입니다.
-E:\nmb\nmb_data\predict\F\F39.wav 남자입니다.
+E:\nmb\nmb_data\predict\F\F3.wav 여자입니다.
+E:\nmb\nmb_data\predict\F\F30.wav 여자입니다.
+E:\nmb\nmb_data\predict\F\F31.wav 여자입니다.
+E:\nmb\nmb_data\predict\F\F32.wav 여자입니다.
+E:\nmb\nmb_data\predict\F\F33.wav 여자입니다.
+E:\nmb\nmb_data\predict\F\F34.wav 여자입니다.
+E:\nmb\nmb_data\predict\F\F35.wav 여자입니다.
+E:\nmb\nmb_data\predict\F\F36.wav 여자입니다.
+E:\nmb\nmb_data\predict\F\F37.wav 여자입니다.
+E:\nmb\nmb_data\predict\F\F38.wav 여자입니다.
+E:\nmb\nmb_data\predict\F\F39.wav 여자입니다.
 E:\nmb\nmb_data\predict\F\F3_high.wav 남자입니다.
-E:\nmb\nmb_data\predict\F\F4.wav 남자입니다.
-E:\nmb\nmb_data\predict\F\F40.wav 남자입니다.
-E:\nmb\nmb_data\predict\F\F41.wav 남자입니다.
-E:\nmb\nmb_data\predict\F\F42.wav 남자입니다.
-E:\nmb\nmb_data\predict\F\F43.wav 남자입니다.
+E:\nmb\nmb_data\predict\F\F4.wav 여자입니다.
+E:\nmb\nmb_data\predict\F\F40.wav 여자입니다.
+E:\nmb\nmb_data\predict\F\F41.wav 여자입니다.
+E:\nmb\nmb_data\predict\F\F42.wav 여자입니다.
+E:\nmb\nmb_data\predict\F\F43.wav 여자입니다.
 E:\nmb\nmb_data\predict\F\F5.wav 남자입니다.
-E:\nmb\nmb_data\predict\F\F6.wav 남자입니다.
+E:\nmb\nmb_data\predict\F\F6.wav 여자입니다.
 E:\nmb\nmb_data\predict\F\F7.wav 남자입니다.
 E:\nmb\nmb_data\predict\F\F8.wav 남자입니다.
-E:\nmb\nmb_data\predict\F\F9.wav 남자입니다.
+E:\nmb\nmb_data\predict\F\F9.wav 여자입니다.
 E:\nmb\nmb_data\predict\M\M1.wav 남자입니다.
 E:\nmb\nmb_data\predict\M\M10.wav 남자입니다.
 E:\nmb\nmb_data\predict\M\M11.wav 남자입니다.
@@ -260,7 +260,8 @@ E:\nmb\nmb_data\predict\M\M7_high.wav 남자입니다.
 E:\nmb\nmb_data\predict\M\M7_low.wav 남자입니다.
 E:\nmb\nmb_data\predict\M\M8.wav 남자입니다.
 E:\nmb\nmb_data\predict\M\M9.wav 남자입니다.
-47개 여성 목소리 중 0개 정답입니다.
+47개 여성 목소리 중 41개 정답입니다.
 48개 남성 목소리 중 48개 정답입니다.
-time >>  0:16:30.851927
+time >>  0:06:20.476565
+
 '''
