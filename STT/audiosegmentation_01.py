@@ -28,12 +28,13 @@ sound_file = AudioSegment.from_wav("E:\\nmb\\nmb_data\\youtube\\5s\\F6.wav")
     # 되게 좋았던
     # 이야기 전개
 
-# 가장 최소의 dbfs가 무엇인지, 최소의 dbfs를 threshold에 넣는다.
+# 가장 최소의 dbfs가 무엇인지
 dbfs = sound_file.dBFS
 # print(sound_file.dBFS)
 thresh = int(dbfs)
 # print(int(sound_file.dBFS))
 
+# 최소의 dbfs를 threshold에 넣는다.
 if dbfs < thresh :
     thresh = thresh - 1
     # print(thresh)
@@ -63,5 +64,5 @@ for i, chunk in enumerate(audio_chunks):
     try:
         txt = r.recognize_google(audio, language="ko-KR")
         print(txt)
-    except :
+    except : # 너무 짧은 음성은 pass 됨 
         pass
