@@ -51,7 +51,6 @@ print(y_test.shape)     # (429,)
 
 # 모델 구성
 model = LGBMClassifier(device='gpu')
-
 model.fit(x_train, y_train)
 
 # model & weight save
