@@ -98,3 +98,24 @@ model = sklearn.linear_model.LogisticRegressionCV(*, Cs=10, fit_intercept=True, 
 * 이진분류 모델로 많이 사용된다.
 * 회귀를 사용하여 데이터가 어떤 범주에 속할 확률을 0과 1사이의 값으로 예측하고 그 확률에 따라 가능성이 더 높은 범주에 속하는 것으로 분류해주는 지도 학습 알고리즘 [링크](http://hleecaster.com/ml-logistic-regression-concept/)    
     
+# 6. XGB, LightXGB, CatBoost
+![1_E006sjlIjabDJ3jNixRSnA](https://user-images.githubusercontent.com/70581043/115263875-c1841500-a170-11eb-8bda-3f4b4a7389e1.png)
+
+### XGB
+* 샘플링 기술을 사용하지 않고, 순차적으로 모든 데이터들을 학습시킨다.
+* 학습이 느리다.
+### LightXGB
+* one-side sampling
+* 의사 결정 트리의 정확성을 유지하며 속도를 높인다.
+* 큰 데이터를 분리해가며 하위 단계로 내려간다.
+* 단점 : 과적합 발생
+* 주의 : 트리 깊이를 제어하는 것이 중요하다.
+### CatBoost
+* Category Boosting
+* Minimal Variance Sampling
+* 샘플링이 분학 수준이 아닌 트리 수준에서 발생, 트리가 옆으로 넓어진다.
+* 모든 레벨의 노드에 동등하게 적용된다.
+* 기존 부스팅 모델이 모든 훈련 데이터를 대상으로 잔차를 계산했다면, catbosst는 일부만 잔차 계산을 한 뒤 모델에 적용
+* 단점 : sparse한 데이터는 처리하지 못한다. 데이터가 수치형 변수인 경우 LGBM보다 학습이 느리다.
+[참고자료](https://medium.com/riskified-technology/xgboost-lightgbm-or-catboost-which-boosting-algorithm-should-i-use-e7fda7bb36bc)
+
