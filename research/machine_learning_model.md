@@ -99,6 +99,18 @@ model = sklearn.linear_model.LogisticRegressionCV(*, Cs=10, fit_intercept=True, 
 * 회귀를 사용하여 데이터가 어떤 범주에 속할 확률을 0과 1사이의 값으로 예측하고 그 확률에 따라 가능성이 더 높은 범주에 속하는 것으로 분류해주는 지도 학습 알고리즘 [링크](http://hleecaster.com/ml-logistic-regression-concept/)    
     
 # 6. XGB, LightXGB, CatBoost
+
+### Boosting 원리
+<img width="380" alt="99E272355D80EDAA2E" src="https://user-images.githubusercontent.com/70581043/115266519-3d7f5c80-a173-11eb-9ce2-e042204855b4.png">
+출처 : https://bcho.tistory.com/1354  
+
+* m1, m2, m3 모델이 있을 때   
+1. m1에 샘플렝된 데이터를 넣는다.    
+2. 1에서 나온 결과 중에서 예측이 잘못된 x 값들에 가중치를 반영해서 다음 모델은 m2 에 넣는다.    
+3. 2에서 예측이 잘못된 x에 값들에 가중치를 반영해서 m3에 넣는다.    
+4. 그 결과 y= m1(x)+m2(x)+m3(x)+error3(x)     
+5. 여기에 가중치 W를 곱한다. y = W1m1(x)+W2m2(x)+W3m3(x)+error3(x)    
+
 ![1_E006sjlIjabDJ3jNixRSnA](https://user-images.githubusercontent.com/70581043/115263875-c1841500-a170-11eb-8bda-3f4b4a7389e1.png)
 
 ### XGB
@@ -116,6 +128,7 @@ model = sklearn.linear_model.LogisticRegressionCV(*, Cs=10, fit_intercept=True, 
 * 샘플링이 분학 수준이 아닌 트리 수준에서 발생, 트리가 옆으로 넓어진다.
 * 모든 레벨의 노드에 동등하게 적용된다.
 * 기존 부스팅 모델이 모든 훈련 데이터를 대상으로 잔차를 계산했다면, catbosst는 일부만 잔차 계산을 한 뒤 모델에 적용
+* 장점 : 랜덤하게 데이터를 섞어준다. 데이터들의 값을 평균으로 인코딩해준다. 파라미터 튜닝에 크게 신경쓰지 않아도 된다.
 * 단점 : sparse한 데이터는 처리하지 못한다. 데이터가 수치형 변수인 경우 LGBM보다 학습이 느리다.
 [참고자료](https://medium.com/riskified-technology/xgboost-lightgbm-or-catboost-which-boosting-algorithm-should-i-use-e7fda7bb36bc)
 
