@@ -30,10 +30,10 @@ def normalize(x, axis=0):
 start_now = datetime.datetime.now()
 
 # 데이터 불러오기
-f_ds = np.load('E:/nmb/nmb_data/npy/brandnew_0_mels.npy')
-f_lb = np.load('E:/nmb/nmb_data/npy/brandnew_0_mels_label.npy')
-m_ds = np.load('E:/nmb/nmb_data/npy/brandnew_1_mels.npy')
-m_lb = np.load('E:/nmb/nmb_data/npy/brandnew_1_mels_label.npy')
+f_ds = np.load('E:/nmb/nmb_data/npy/brandnew_0_mfccs.npy')
+f_lb = np.load('E:/nmb/nmb_data/npy/brandnew_0_mfccs_label.npy')
+m_ds = np.load('E:/nmb/nmb_data/npy/brandnew_1_mfccs.npy')
+m_lb = np.load('E:/nmb/nmb_data/npy/brandnew_1_mfccs_label.npy')
 
 x = np.concatenate([f_ds, m_ds], 0)
 x = x.reshape(x.shape[0], x.shape[1]*x.shape[2])
@@ -53,11 +53,11 @@ model = CatBoostClassifier(verbose=True)
 model.fit(x_train, y_train)
 
 # model & weight save
-pickle.dump(model, open('E:/nmb/nmb_data/cp/m03_mels_CatBoostClassifier.data', 'wb')) # wb : write
+pickle.dump(model, open('E:/nmb/nmb_data/cp/m04_mfcc_CatBoostClassifier.data', 'wb')) # wb : write
 print("== save complete ==")
 
 # model load
-# model = pickle.load(open('E:/nmb/nmb_data/cp/m03_mels_CatBoostClassifier.data', 'rb'))  # rb : read
+# model = pickle.load(open('E:/nmb/nmb_data/cp/m04_mfcc_CatBoostClassifier.data', 'rb'))  # rb : read
 # time >>  
 
 # evaluate
@@ -89,17 +89,16 @@ files = librosa.util.find_files(pred_pathAudio, ext=['wav'])
 files = np.asarray(files)
 for file in files:   
     y, sr = librosa.load(file, sr=22050) 
-    pred_mels = librosa.feature.melspectrogram(y, sr=sr, n_fft=512, hop_length=128, n_mels=128)
-    pred_mels = librosa.amplitude_to_db(pred_mels, ref=np.max)
-    pred_mels = pred_mels.reshape(1, pred_mels.shape[0] * pred_mels.shape[1])
+    pred_mfcc = librosa.feature.mfcc(y, sr=sr, n_mfcc=20, n_fft=512, hop_length=128)
+    pred_mfcc = normalize(pred_mfcc, axis=1)
+    pred_mfcc = pred_mfcc.reshape(1, pred_mfcc.shape[0] * pred_mfcc.shape[1])
     # print(pred_mels.shape)  # (1, 110336)
-    y_pred = model.predict(pred_mels)
+    y_pred = model.predict(pred_mfcc)
     # print(y_pred)
     if y_pred == 0 :                    # label 0
         print(file, '여자입니다.')
     else:                               # label 1
         print(file, '남자입니다.')
-
 
 end_now = datetime.datetime.now()
 time = end_now - start_now
@@ -107,29 +106,6 @@ print("time >> " , time)    # time >
 
 '''
 model = CatBoost
-accuracy :       0.9370629370629371
-recall :         0.9658536585365853
-precision :      0.908256880733945
-f1 :             0.9361702127659574
 
-hamming_loss :   0.06293706293706294
-hinge_loss :     0.585081585081585
-log_loss :       2.173806421005111
-E:\nmb\nmb_data\pred_voice\FY1.wav 여자입니다.                      (o)
-E:\nmb\nmb_data\pred_voice\MZ1.wav 남자입니다.                      (o)
-E:\nmb\nmb_data\pred_voice\friendvoice_F4.wav 여자입니다.           (o)    
-E:\nmb\nmb_data\pred_voice\friendvoice_M3.wav 남자입니다.           (o)
-E:\nmb\nmb_data\pred_voice\friendvoice_M4.wav 남자입니다.           (o)
-E:\nmb\nmb_data\pred_voice\friendvoice_M5.wav 남자입니다.           (o)
-E:\nmb\nmb_data\pred_voice\friendvoice_M6.wav 남자입니다.           (o)
-E:\nmb\nmb_data\pred_voice\friendvoice_M7.wav 남자입니다.           (o)
-E:\nmb\nmb_data\pred_voice\testvoice_F1(clear).wav 여자입니다.      (o)
-E:\nmb\nmb_data\pred_voice\testvoice_F1_high(clear).wav 여자입니다. (o)
-E:\nmb\nmb_data\pred_voice\testvoice_F2(clear).wav 여자입니다.      (o)
-E:\nmb\nmb_data\pred_voice\testvoice_F3(clear).wav 여자입니다.      (o)
-E:\nmb\nmb_data\pred_voice\testvoice_M1(clear).wav 남자입니다.      (o)
-E:\nmb\nmb_data\pred_voice\testvoice_M2(clear).wav 남자입니다.      (o)
-E:\nmb\nmb_data\pred_voice\testvoice_M2_low(clear).wav 남자입니다.  (o)
-정답률 15/15
-time >>  0:41:25.724632
+
 '''

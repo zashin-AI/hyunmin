@@ -50,17 +50,17 @@ print(y_train.shape)    # (1712,)
 print(y_test.shape)     # (429,)
 
 # 모델 구성
-model = LGBMClassifier(n_estimators=10000, device='gpu')
+model = LGBMClassifier(device='gpu')
 
 model.fit(x_train, y_train)
 
 # model & weight save
-pickle.dump(model, open('E:/nmb/nmb_data/cp/m03_mels_LGBMClassifier.data', 'wb')) # wb : write
+# pickle.dump(model, open('E:/nmb/nmb_data/cp/m04_mfcc_LGBMClassifier.data', 'wb')) # wb : write
 # print("== save complete ==")
 
 # model load
-# model = pickle.load(open('E:/nmb/nmb_data/cp/m03_mels_LGBMClassifier.data', 'rb'))  # rb : read
-# time >>  0:30:49.704071
+model = pickle.load(open('E:/nmb/nmb_data/cp/m04_mfcc_LGBMClassifier.data', 'rb'))  # rb : read
+# time >>
 
 # evaluate
 y_pred = model.predict(x_test)
@@ -72,10 +72,18 @@ recall = recall_score(y_test, y_pred)
 precision = precision_score(y_test, y_pred)
 f1 = f1_score(y_test, y_pred)
 
+hamm_loss = hamming_loss(y_test, y_pred)
+hinge_loss = hinge_loss(y_test, y_pred)
+log_loss = log_loss(y_test, y_pred)
+
 print("accuracy : \t", accuracy)
 print("recall : \t", recall)
 print("precision : \t", precision)
 print("f1 : \t", f1)
+
+print("hamming_loss : \t", hamm_loss)
+print("hinge_loss : \t", hinge_loss)                    # SVM에 적합한 cross-entropy
+print("log_loss : \t", log_loss)                        # Cross-entropy loss와 유사한 개념
 
 # predict 데이터
 pred_pathAudio = 'E:/nmb/nmb_data/pred_voice/'
@@ -101,5 +109,28 @@ print("time >> " , time)    # time >
 
 '''
 model = LGBMClassifier(n_estimators=10000)
-
+accuracy :       0.9463869463869464
+recall :         0.9804878048780488
+precision :      0.9136363636363637
+f1 :     0.9458823529411766
+hamming_loss :   0.053613053613053616
+hinge_loss :     0.5757575757575758
+log_loss :       1.851764683995617
+E:\nmb\nmb_data\pred_voice\FY1.wav 여자입니다.                      (o)
+E:\nmb\nmb_data\pred_voice\MZ1.wav 남자입니다.                      (o)
+E:\nmb\nmb_data\pred_voice\friendvoice_F4.wav 여자입니다.           (o)
+E:\nmb\nmb_data\pred_voice\friendvoice_M3.wav 남자입니다.           (o)
+E:\nmb\nmb_data\pred_voice\friendvoice_M4.wav 남자입니다.           (o)
+E:\nmb\nmb_data\pred_voice\friendvoice_M5.wav 남자입니다.           (o)
+E:\nmb\nmb_data\pred_voice\friendvoice_M6.wav 남자입니다.           (o)
+E:\nmb\nmb_data\pred_voice\friendvoice_M7.wav 남자입니다.           (o)
+E:\nmb\nmb_data\pred_voice\testvoice_F1(clear).wav 여자입니다.      (o)
+E:\nmb\nmb_data\pred_voice\testvoice_F1_high(clear).wav 여자입니다. (o)    
+E:\nmb\nmb_data\pred_voice\testvoice_F2(clear).wav 여자입니다.      (o)    
+E:\nmb\nmb_data\pred_voice\testvoice_F3(clear).wav 여자입니다.      (o)    
+E:\nmb\nmb_data\pred_voice\testvoice_M1(clear).wav 남자입니다.      (o)
+E:\nmb\nmb_data\pred_voice\testvoice_M2(clear).wav 남자입니다.      (o)
+E:\nmb\nmb_data\pred_voice\testvoice_M2_low(clear).wav 남자입니다.  (o)
+정답률 15/15
+time >>  0:02:45.693192
 '''
