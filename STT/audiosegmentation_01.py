@@ -7,7 +7,7 @@ r = sr.Recognizer()
 '''오디오 파일을 불러옴 > silence 부분마다 잘라서 음성 파일 저장 > 해당 파일을 google stt에 적용 > text 출력'''
 
 # 오디오 불러오기
-sound_file = AudioSegment.from_wav("E:\\nmb\\nmb_data\\youtube\\5s\\F6.wav")
+# sound_file = AudioSegment.from_wav("E:\\nmb\\nmb_data\\youtube\\5s\\F6.wav")
     # 그냥 지켜보며
 # sound_file = AudioSegment.from_wav("E:\\nmb\\nmb_data\\youtube\\5s\\F42.wav")
     # 동료들도
@@ -21,7 +21,7 @@ sound_file = AudioSegment.from_wav("E:\\nmb\\nmb_data\\youtube\\5s\\F6.wav")
     # 조용히 해
 # sound_file = AudioSegment.from_wav("E:\\nmb\\nmb_data\\youtube\\5s\\M41.wav")   
     # 연기가
-# sound_file = AudioSegment.from_wav("E:\\nmb\\nmb_data\\predict\\M\\M5.wav") 
+sound_file = AudioSegment.from_wav("E:\\nmb\\nmb_data\\predict\\M\\M5.wav") 
     # 거리두기 집
     # 자리는 비
 # sound_file = AudioSegment.from_wav("E:\\nmb\\nmb_data\\predict\\M\\M11.wav")
@@ -59,7 +59,7 @@ for i, chunk in enumerate(audio_chunks):
     chunk.export(out_file, format="wav")
     aaa = sr.AudioFile(out_file)
     with aaa as source :
-        audio = r.record(aaa, duration=1) 
+        audio = r.record(aaa)#, duration=1) 
     # print(type(audio))
     try:
         txt = r.recognize_google(audio, language="ko-KR")
