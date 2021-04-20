@@ -41,15 +41,9 @@ for j, path in enumerate(file_list) :
         # # keep 200 ms of leading/trailing silence (음성의 앞, 뒤 갑자기 뚝! 끊기는 걸 방지하기 위한 기능인 것 같음)
         # keep_silence=200
 
-        # min_silence_len= 200,
-        # silence_thresh= dbfs - 16 ,
-        # keep_silence= 100
-
         min_silence_len= 200,
         silence_thresh= dbfs - 16 ,
-        keep_silence= 50
-
-        
+        keep_silence= 100
     )
     # print(len(audio_chunks))
 
@@ -82,11 +76,10 @@ for j, path in enumerate(file_list) :
 
 '''
 E:\nmb\nmb_data\predict\test_01.wav 
- ['하루 확진자가 오늘로 나흘째 600명 때 머물고 있습니다 하지만 이스라엘은 사실상 집단면역 선언하고', '오늘부터 야외에서 마스크를 벗고 있습니다 JTBC 취재팀이 직접 이스라엘로 날아갔
-는데 잠시 후 상지 연결해 보겠습니다']
+ ['하루 확진자가 오늘로 나흘째 600명 때 머물고 있습니다 하지만 이스라엘은 사실상 집단면역 선언하고', '오늘부터 야외에서 마스크를 벗고 있습니다 JTBC 
+취재팀이 직접 이스라엘로 날아갔는데 잠시 후 상지 연결해 보겠습니다']
 E:\nmb\nmb_data\predict\test_02.wav 
- ['토끼와 자라', '옛날에', '어느 바닷속에 아주 아름다운 용궁이 있었어요', '그런데', '이 아름다운 용궁에 슬픈 일이 생겼답니다', '나이 많은 용왕님이', '시름시름 앓다가 자리에 누워 있
-기 때문이지요']
+ ['토끼와 자라', '옛날에', '어느 바닷속에 아주 아름다운 용궁이 있었어요', '그런데', '이 아름다운 용궁에 슬픈 일이 생겼답니다', '나이 많은 용왕님이', '시름시름 앓다가 자리에 누워 있기 때문이지요']
 E:\nmb\nmb_data\predict\F\F37.wav 
  ['저는 같은 반에 있던 하우사족 아이에 대한 편견을 극복했습니다']
 E:\nmb\nmb_data\predict\M\M41.wav 
@@ -96,3 +89,4 @@ E:\nmb\nmb_data\predict\M\M37.wav
 E:\nmb\nmb_data\predict\M\M36.wav 
  ['오디션 영상을 녹화해서 유튜브에 올림', '유튜브에서']
 '''
+"""
