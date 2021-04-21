@@ -1,8 +1,9 @@
 # https://github.com/jiaaro/pydub/issues/169
+
 from pydub import AudioSegment
-from pydub.silence import split_on_silence, detect_silence
+from pydub.silence import split_on_silence, detect_silence      # 기존 split_on_silence 는 copy 해두고, https://github.com/jiaaro/pydub/blob/master/pydub/silence.py 이 사람이 만든  split_on_silence 복사/수정
 import speech_recognition as sr
-from hanspell import spell_checker
+from hanspell import spell_checker      # https://github.com/ssut/py-hanspell 여기있는 파일 다운받아서 이 함수를 사용할 폴더에 넣어야 함
 
 r = sr.Recognizer()
 
