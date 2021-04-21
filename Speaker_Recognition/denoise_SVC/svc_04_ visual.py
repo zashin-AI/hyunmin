@@ -73,7 +73,6 @@ x_test = scaler.transform(x_test)
 plt.figure(figsize=(10,6))
 model = SVC(verbose=1, C=10, random_state=42)
 
-
 # accuracy
 train_sizes, train_scores_model, test_scores_model = \
     learning_curve(model, x_train[:100], y_train[:100], train_sizes=np.linspace(0.1, 1.0, 10),
