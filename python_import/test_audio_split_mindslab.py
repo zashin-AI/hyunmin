@@ -19,11 +19,20 @@ import_test()
 # filelist = ['f1', 'f2', 'f3', 'f4', 'f5', 'f6', 'f7', 'f8', 'f9', 'f10', 'f11', 'f12', 'f13', 'f14']
 filelist = ['m1','m2']
 
+# for filename in filelist : 
+
+#     origin_dir = 'E:\\nmb\\nmb_data\\mindslab\\minslab_m\\'+ filename + '.wav'
+#     threshold = 5000 # 몇초씩 자를 것인지 설정
+#     out_dir = 'E:\\nmb\\nmb_data\\mindslab\\mindslab_m_2m\\'
+#     end_threshold = 120000 # 끝나는 지점(1분)
+#     voice_split_1m(origin_dir=origin_dir, threshold=threshold, end_threshold =end_threshold,out_dir=out_dir)
+
+
 for filename in filelist : 
 
     origin_dir = 'E:\\nmb\\nmb_data\\mindslab\\minslab_m\\'+ filename + '.wav'
-    threshold = 5000 # 몇초씩 자를 것인지 설정
-    out_dir = 'E:\\nmb\\nmb_data\\mindslab\\mindslab_m_2m\\'
+    threshold = 30000 # 몇초씩 자를 것인지 설정
+    out_dir = 'E:\\nmb\\nmb_data\\test30\\'
     end_threshold = 120000 # 끝나는 지점(1분)
     voice_split_1m(origin_dir=origin_dir, threshold=threshold, end_threshold =end_threshold,out_dir=out_dir)
 
