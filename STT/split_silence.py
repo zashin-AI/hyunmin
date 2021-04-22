@@ -16,6 +16,7 @@ def split_silence_hm(audio_dir, split_silence_dir, sum_dir) :
         split_silence_dir : 묵음 부분 마다 자른 오디오 파일을 저장할 파일 경로
         sum_dir : 묵음 부분 마다 자른 오디오 파일을 합쳐서 저장할 파일경로
     '''
+    
     # audio_dir에 있는 모든 파일을 가져온다.
     audio_dir = librosa.util.find_files(audio_dir, ext=['wav'])
 
@@ -65,7 +66,9 @@ def split_silence_hm(audio_dir, split_silence_dir, sum_dir) :
         path_out = sum_dir + w_id + '_silence_total.wav'
         print("모두 합친 파일 명 ", path_out) 
         voice_sum(form='wav', audio_dir=path_wav, save_dir=None, out_dir=path_out)
-
+        # voice_handling.py 55번째 줄, 아래처럼 수정해야 돌아감
+        # combined = combined.append(wav, crossfade=0) 
+        
 audio_dir = 'E:\\nmb\\nmb_data\\mindslab\\minslab_m\\m_2m\\'
 split_silence_dir = "E:\\nmb\\nmb_data\\mindslab\\minslab_m\\m_total_chunk\\"
 sum_dir = "E:\\nmb\\nmb_data\\mindslab\\minslab_m\\m_total_chunk\\total\\"
