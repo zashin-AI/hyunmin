@@ -10,23 +10,39 @@ import librosa
 sys.path.append('E:/nmb/nada/python_import/')
 from voice_handling import import_test, voice_sum
 
-
 r = sr.Recognizer()
 
+# [1] 묵음 없앨 오디오 파일
 
-'''디노이즈 > 속도 느리게 > 오디오 파일을 불러옴 > silence 부분마다 잘라서 음성 파일 저장 > 해당 파일을 google stt에 적용 > 한글 맞춤법 검사 > text 출력'''
+# def split_silence_hm () :
+audio_dir = librosa.util.find_files('E:\\nmb\\nmb_data\\mindslab\\minslab_m\\m_2m\\', ext=['wav'])
+split_silence_dir = "E:\\nmb\\nmb_data\\mindslab\\minslab_m\\m_total_chunk\\"
+sum_dir = "E:\\nmb\\nmb_data\\mindslab\\minslab_m\\m_total_chunk\\total\\"
 
-"""
-file_list = librosa.util.find_files('E:\\nmb\\nmb_data\\mindslab\\minslab_m\\m_2m', ext=['wav'])
-print(file_list)
+file_num = len(audio_dir)
+# print(file_num)
 
-for j, path in enumerate(file_list) : 
+def createFolder(directory):
+    try:
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+    except OSError:
+        print ('Error: Creating directory. ' +  directory)
+
+for path in audio_dir :
+    print(path)
+
     # 오디오 불러오기
     sound_file = AudioSegment.from_wav(path)
+
+    # audio = AudioSegment.from_file(origin_dir)
+    _, w_id = os.path.split(path)
+    w_id = w_id[:-4]
+
     # 가장 최소의 dbfs가 무엇인지
     # dbfs : 아날로그 db과는 다른 디지털에서의 db 단위, 0일 때가 최고 높은 레벨
     dbfs = sound_file.dBFS
-    # print(sound_file.dBFS)
+
     # silence 부분 마다 자른다. 
     audio_chunks = split_on_silence(sound_file,  
         min_silence_len= 200,
@@ -34,44 +50,27 @@ for j, path in enumerate(file_list) :
         # keep_silence= 100
         keep_silence= 0
     )
-    # print(len(audio_chunks))
-    full_txt = []
+
+    createFolder( split_silence_dir + w_id )
+
     # 말 자른 거 저장
     for i, chunk in enumerate(audio_chunks):        
-        out_file = "E:\\nmb\\nmb_data\\mindslab\\minslab_m\\m_total_chunk\\"+ f"m_chunk{i}.wav"
+        out_file = split_silence_dir + w_id + f"_chunk{i}.wav"
         print ("exporting", out_file)
-        # chunk.export(out_file, format="wav")
+        chunk.export(out_file, format="wav")
 
+    '''
+    def createFolder(directory):
+        try:
+            if not os.path.exists(directory):
+                os.makedirs(directory)
+        except OSError:
+            print ('Error: Creating directory. ' +  directory)
+    '''
 
-path_wav = 'E:\\nmb\\nmb_data\\mindslab\\minslab_m\\m_total_chunk\\'
-path_out = 'E:\\nmb\\nmb_data\\mindslab\\minslab_m\\m_total_chunk\\total\\mindslab_m_silence_total.wav'
-voice_sum(form='wav', audio_dir=path_wav, save_dir=None, out_dir=path_out)
-"""
+    ###############################################
 
-path = 'E:\\nmb\\nmb_data\\mindslab\\minslab_m\\m_2m\\m1.wav'
-
-# 오디오 불러오기
-sound_file = AudioSegment.from_wav(path)
-# 가장 최소의 dbfs가 무엇인지
-# dbfs : 아날로그 db과는 다른 디지털에서의 db 단위, 0일 때가 최고 높은 레벨
-dbfs = sound_file.dBFS
-# print(sound_file.dBFS)
-# silence 부분 마다 자른다. 
-audio_chunks = split_on_silence(sound_file,  
-    min_silence_len= 200,
-    silence_thresh= dbfs - 16 ,
-    # keep_silence= 100
-    keep_silence= 0
-)
-# print(len(audio_chunks))
-full_txt = []
-# 말 자른 거 저장
-for i, chunk in enumerate(audio_chunks):        
-    out_file = "E:\\nmb\\nmb_data\\mindslab\\minslab_m\\m_total_chunk\\m1_chunk\\"+ f"m1_chunk{i}.wav"
-    print ("exporting", out_file)
-    chunk.export(out_file, format="wav")
-
- 
-path_wav = 'E:\\nmb\\nmb_data\\mindslab\\minslab_m\\m_total_chunk\\m1_chunk\\'
-path_out = 'E:\\nmb\\nmb_data\\mindslab\\minslab_m\\m_total_chunk\\total\\mindslab_m1_silence_total.wav'
-voice_sum(form='wav', audio_dir=path_wav, save_dir=None, out_dir=path_out)
+    # [2] 묵음을 기준으로 자른 오디오 파일을 하나의 파일로 합친다.
+    path_wav = split_silence_dir
+    path_out = sum_dir + w_id+ '_silence_total.wav'
+    voice_sum(form='wav', audio_dir=path_wav, save_dir=None, out_dir=path_out)
