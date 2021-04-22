@@ -1,22 +1,25 @@
-# https://github.com/jiaaro/pydub/issues/169
 import sys
 import os
 from pydub import AudioSegment
-from pydub.silence import split_on_silence, detect_silence      # 기존 split_on_silence 는 copy 해두고, https://github.com/jiaaro/pydub/blob/master/pydub/silence.py 이 사람이 만든  split_on_silence 복사/수정
-import speech_recognition as sr
-from hanspell import spell_checker      # https://github.com/ssut/py-hanspell 여기있는 파일 다운받아서 이 함수를 사용할 폴더에 넣어야 함
-import librosa.display
+from pydub.silence import split_on_silence   
+# split_on_silence 참고 사이트,  https://github.com/jiaaro/pydub/issues/169  
+# 기존 split_on_silence 는 copy 해두고, https://github.com/jiaaro/pydub/blob/master/pydub/silence.py 이 사람이 만든  split_on_silence 복사/수정
 import librosa
 sys.path.append('E:/nmb/nada/python_import/')
 from voice_handling import import_test, voice_sum
 
-r = sr.Recognizer()
+def split_silence_hm(audio_dir, split_silence_dir, sum_dir) :
 
-def split_silence_hm (audio_dir, split_silence_dir, sum_dir) :
+    '''
+    Args : 
+        audio_dir : 여러 오디오('wav')가 있는 파일경로
+        split_silence_dir : 묵음 부분 마다 자른 오디오 파일을 저장할 파일 경로
+        sum_dir : 묵음 부분 마다 자른 오디오 파일을 합쳐서 저장할 파일경로
+    '''
+    # audio_dir에 있는 모든 파일을 가져온다.
+    audio_dir = librosa.util.find_files(audio_dir, ext=['wav'])
 
-    file_num = len(audio_dir)
-    # print(file_num)
-
+    # 폴더 생성하기
     def createFolder(directory):
         try:
             if not os.path.exists(directory):
@@ -24,13 +27,14 @@ def split_silence_hm (audio_dir, split_silence_dir, sum_dir) :
         except OSError:
             print ('Error: Creating directory. ' +  directory)
 
+    # audio_dir에 있는 파일을 하나 씩 불러온다.
     for path in audio_dir :
-        print(path)
+        print("묵음을 없앨 파일 ", path)
 
         # 오디오 불러오기
         sound_file = AudioSegment.from_wav(path)
 
-        # audio = AudioSegment.from_file(origin_dir)
+        # 파일 이름만 가져오기
         _, w_id = os.path.split(path)
         w_id = w_id[:-4]
 
@@ -46,24 +50,23 @@ def split_silence_hm (audio_dir, split_silence_dir, sum_dir) :
             keep_silence= 0
         )
 
-        createFolder( split_silence_dir + w_id )
+        # 파일 명으로 새로운 폴더를 생성한다.
+        createFolder(split_silence_dir + w_id)
 
-        # 말 자른 거 저장
+        # silence 부분 마다 자른 거 wav로 저장
         for i, chunk in enumerate(audio_chunks):        
             out_file = split_silence_dir + w_id + "\\" + w_id+ f"_{i}.wav"
             # print ("exporting", out_file)
             chunk.export(out_file, format="wav")
 
-        ###############################################
-
-        # [2] 묵음을 기준으로 자른 오디오 파일을 하나의 파일로 합친다.
+        # 묵음을 기준으로 자른 오디오 파일을 하나의 파일로 합친다.
         path_wav = split_silence_dir + w_id + "\\" 
-        print(path_wav) # E:\nmb\nmb_data\mindslab\minslab_m\m_total_chunk\f7
+        print("묵음으로 잘린 파일이 저장된 곳", path_wav) 
         path_out = sum_dir + w_id + '_silence_total.wav'
-        print(path_out) # E:\nmb\nmb_data\mindslab\minslab_m\m_total_chunk\total\f7_silence_total.wav
+        print("모두 합친 파일 명 ", path_out) 
         voice_sum(form='wav', audio_dir=path_wav, save_dir=None, out_dir=path_out)
 
-audio_dir = librosa.util.find_files('E:\\nmb\\nmb_data\\mindslab\\minslab_m\\m_2m\\', ext=['wav'])
+audio_dir = 'E:\\nmb\\nmb_data\\mindslab\\minslab_m\\m_2m\\'
 split_silence_dir = "E:\\nmb\\nmb_data\\mindslab\\minslab_m\\m_total_chunk\\"
 sum_dir = "E:\\nmb\\nmb_data\\mindslab\\minslab_m\\m_total_chunk\\total\\"
 
