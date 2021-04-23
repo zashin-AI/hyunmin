@@ -12,6 +12,7 @@ def split_silence_hm(audio_dir, split_silence_dir, sum_dir) :
 
     '''
     Args : 
+        오디오 파일 묵음 마다 오디오 자름 > 자른 오디오 저장 > 다시 합친 오디오 저장
         audio_dir : 여러 오디오('wav')가 있는 파일경로
         split_silence_dir : 묵음 부분 마다 자른 오디오 파일을 저장할 파일 경로
         sum_dir : 묵음 부분 마다 자른 오디오 파일을 합쳐서 저장할 파일경로
@@ -69,8 +70,8 @@ def split_silence_hm(audio_dir, split_silence_dir, sum_dir) :
         # voice_handling.py 55번째 줄, 아래처럼 수정해야 돌아감
         # combined = combined.append(wav, crossfade=0) 
         
-audio_dir = 'E:\\nmb\\nmb_data\\mindslab\\minslab_m\\m_2m\\'
-split_silence_dir = "E:\\nmb\\nmb_data\\mindslab\\minslab_m\\m_total_chunk\\"
-sum_dir = "E:\\nmb\\nmb_data\\mindslab\\minslab_m\\m_total_chunk\\total\\"
+audio_dir = 'E:\\nmb\\nmb_data\\mindslab\\minslab_f\\f_2m\\'
+split_silence_dir = "E:\\nmb\\nmb_data\\mindslab\\minslab_f\\f_total_chunk\\"
+sum_dir = "E:\\nmb\\nmb_data\\mindslab\\minslab_f\\f_total_chunk\\total\\"
 
 split_silence_hm(audio_dir, split_silence_dir, sum_dir)
