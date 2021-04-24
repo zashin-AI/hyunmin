@@ -19,10 +19,12 @@ import_test()
 
 # 적용해보자!
 
-origin_dir = 'E:\\nmb\\nmb_data\\mindslab\\minslab_m\\m_total_chunk\\nslab_m\\m_total_chunk\\mindslab_m_total\\_noise\\'
+# origin_dir = 'E:\\nmb\\nmb_data\\mindslab\\minslab_m\\m_total_chunk\\nslab_m\\m_total_chunk\\mindslab_m_total\\_noise\\'
+origin_dir = 'E:\\nmb\\nmb_data\\mindslab\\minslab_f\\f_total_chunk\\nslab_f\\f_total_chunk\\mindslab_f_total\\_noise\\'
 threshold = 1000 # 몇초씩 자를 것인지 설정
-out_dir = 'E:\\nmb\\nmb_data\\mindslab\\minslab_m\\m_total_chunk\\mindslab_2m1s\\'
-end_threshold = 120000 # 끝나는 지점(1분)
+# out_dir = 'E:\\nmb\\nmb_data\\mindslab\\minslab_m\\m_total_chunk\\mindslab_2m1s\\'
+out_dir = 'E:\\nmb\\nmb_data\\mindslab\\minslab_f\\f_total_chunk\\mindslab_2m1s\\'
+end_threshold = 120000 # 끝나는 지점(2분)
 
 infiles = librosa.util.find_files(origin_dir)
 
