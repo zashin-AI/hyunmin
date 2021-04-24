@@ -1,6 +1,4 @@
 import tensorflow as tf
-tf.compat.v1.disable_eager_execution()
-print(tf.executing_eagerly())
 import numpy as np
 import functools
 import pathlib
