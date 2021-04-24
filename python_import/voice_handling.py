@@ -115,7 +115,6 @@ def voice_split_1m(origin_dir, threshold, end_threshold, out_dir):
         start += threshold
     print('==== wav split done ====')
 
-
 # 원하는 초만 자르고 싶어서 만든 함수
 def voice_split_term(origin_dir, out_dir, start, end):
     '''

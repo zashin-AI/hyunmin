@@ -14,8 +14,10 @@ from noise_handling import denoise_tim
 # )
 
 denoise_tim(
-    load_dir = 'E:\\nmb\\nmb_data\\predict\\stt\\',
-    out_dir = 'E:\\nmb\\nmb_data\\predict\\stt_denoise\\',
+    # load_dir = 'E:\\nmb\\nmb_data\\mindslab\\minslab_m\\m_total_chunk\\mindslab_m_total\\',
+    # out_dir = 'E:\\nmb\\nmb_data\\mindslab\\minslab_m\\m_total_chunk\\',
+    load_dir = 'E:\\nmb\\nmb_data\\mindslab\\minslab_f\\f_total_chunk\\mindslab_f_total\\',
+    out_dir = 'E:\\nmb\\nmb_data\\mindslab\\minslab_f\\f_total_chunk\\',
     noise_min = 5000,
     noise_max = 15000,
     n_fft = 512,
