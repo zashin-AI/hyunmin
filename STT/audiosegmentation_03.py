@@ -60,13 +60,14 @@ for j, path in enumerate(file_list) :
         # out_file = "E:\\nmb\\nmb_data\\chunk\\"+ str(j) + f"chunk{i}.wav"        
         out_file = "E:\\nmb\\nmb_data\\chunk\\chunk_slow\\"+ str(j) + f"chunk{i}.wav"
         # print ("exporting", out_file)
-        chunk.export(out_file, format="wav")
+        # chunk.export(out_file, format="wav")
         aaa = sr.AudioFile(out_file)
         with aaa as source :
             audio = r.record(aaa)
         # print(type(audio))
         try:
             txt = r.recognize_google(audio, language="ko-KR")
+            # txt = r.recognize_ibm(audio, language="ko-KR")
             # print(txt)
 
             # 한국어 맞춤법 체크
