@@ -2,6 +2,7 @@ import librosa
 from pydub import AudioSegment
 import soundfile as sf
 import os
+sys.path.append('E:/nmb/nada/python_import/')
 from voice_handling import import_test, voice_sum
 
 import_test()
