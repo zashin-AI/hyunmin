@@ -13,7 +13,7 @@ from tensorflow.keras.models import load_model
 
 '''
 [순서]
-2분 남성여성 대화형 음성 데이터
+남성여성 대화형 음성 데이터
 > 디노이즈 
 > 볼륨 정규화 
 > 묵음 부분마다 음성 자름 
@@ -24,11 +24,11 @@ from tensorflow.keras.models import load_model
 '''
 
 # 남녀가 말하는 음성 파일 입력 
-# audio_file = 'E:\\nmb\\nmb_data\\STT_multiple_speaker_temp\\pansori\\un4qbATrmx8.wav'
+audio_file = 'E:\\nmb\\nmb_data\\STT_multiple_speaker_temp\\pansori\\un4qbATrmx8.wav'
 # audio_file = 'E:\\nmb\\nmb_data\\STT_multiple_speaker_temp\\mindslabABS\\ABS_M_81_SE_2018-0808-1145-40_denoise.wav'
 # audio_file = 'E:\\nmb\\nmb_data\\STT_multiple_speaker_temp\\mindslabGYD\\GYD_M_88_DG_2018-0806-1105-38_denoise.wav'
 # audio_file = 'E:\\nmb\\nmb_data\\STT_multiple_speaker_temp\\korea_t12\\korea_multi_t12.wav'
-audio_file = 'E:\\nmb\\nmb_data\\STT_multiple_speaker_temp\\korea_t18\\korea_multi_t18.wav'
+# audio_file = 'E:\\nmb\\nmb_data\\STT_multiple_speaker_temp\\korea_t18\\korea_multi_t18.wav'
 
 # 파일 경로 분리
 audio_file_path = os.path.splitext(audio_file)
@@ -126,7 +126,7 @@ save_script = ''
 for i, chunk in enumerate(audio_chunks): 
     speaker_stt = []   
     out_file = folder_path + "\\"+ str(i) + "_chunk.wav"    # wav 파일 생성 안하고 STT로 바꿀 수 있는 방법은 없을까//?
-    chunk.export(out_file, format="wav")
+    # chunk.export(out_file, format="wav")
     aaa = sr.AudioFile(out_file)
     with aaa as source :
         audio = r.record(aaa)
