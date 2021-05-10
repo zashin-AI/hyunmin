@@ -9,7 +9,6 @@ from tensorflow.keras.models import Sequential, load_model, Model
 from sklearn.calibration import CalibratedClassifierCV
 from sklearn.naive_bayes import GaussianNB
 from sklearn.svm import LinearSVC, SVC
-from sklearn.svm import NuSVC
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 from sklearn.metrics import accuracy_score, recall_score, precision_score, f1_score, hamming_loss, hinge_loss, log_loss, mean_squared_error
 # from sklearn.utils import all_estimators  
@@ -43,15 +42,15 @@ x_train = scaler.transform(x_train)
 x_test = scaler.transform(x_test)
 
 # 모델 구성
-model = NuSVC(verbose=1)
+model = SVC(verbose=1, random_state=42)
 # model.fit(x_train, y_train)
 
 # model & weight save
-# pickle.dump(model, open('E:\\nmb\\nmb_data\\cp\\5s_last_0510_ml\\NuSVC_2_minmax.data', 'wb')) # wb : write
+# pickle.dump(model, open('E:\\nmb\\nmb_data\\cp\\5s_last_0510_ml\\SVC_3_minmax.data', 'wb')) # wb : write
 # print("== save complete ==")
 
 # model load
-model = pickle.load(open('E:\\nmb\\nmb_data\\cp\\5s_last_0510_ml\\NuSVC_2_minmax.data', 'rb'))  # rb : read
+model = pickle.load(open('E:\\nmb\\nmb_data\\cp\\5s_last_0510_ml\\SVC_3_minmax.data', 'rb'))  # rb : read
 # time >>  
 
 # evaluate
@@ -97,22 +96,18 @@ for pred_pathAudio in pred:
 print("43개 여성 목소리 중 "+str(count_f)+"개 정답")
 print("43개 남성 목소리 중 "+str(count_m)+"개 정답")
 
+
 end_now = datetime.datetime.now()
 time = end_now - start_now
 print("time >> " , time)    # time >
 
-import winsound as sd
-def beepsound():
-    fr = 1000    # range : 37 ~ 32767
-    du = 500     # 1000 ms ==1second
-    sd.Beep(fr, du) # winsound.Beep(frequency, duration)
-
-beepsound()
-
 '''
-[LibSVM]== save complete ==
-log_loss :       2.8148597373886197
-accuracy :       0.9185022026431718
+optimization finished, #iter = 2667
+obj = -659.289981, rho = -0.855245
+nSV = 1858, nBSV = 564
+Total nSV = 1858
+[LibSVM]log_loss :       1.74978029263428
+accuracy :       0.9493392070484582
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F1.wav 여자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F10.wav 여자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F11.wav 여자입니다.
@@ -201,4 +196,5 @@ E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M8.wav 남자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M9.wav 남자입니다.
 43개 여성 목소리 중 40개 정답
 43개 남성 목소리 중 37개 정답
+time >>  0:02:45.505601
 '''

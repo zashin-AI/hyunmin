@@ -44,14 +44,14 @@ x_test = scaler.transform(x_test)
 
 # 모델 구성
 model = NuSVC(verbose=1, random_state=42, kernel='sigmoid')
-model.fit(x_train, y_train)
+# model.fit(x_train, y_train)
 
 # model & weight save
-pickle.dump(model, open('E:\\nmb\\nmb_data\\cp\\5s_last_0510_ml\\NuSVC_5_sigmoid.data', 'wb')) # wb : write
-print("== save complete ==")
+# pickle.dump(model, open('E:\\nmb\\nmb_data\\cp\\5s_last_0510_ml\\NuSVC_5_sigmoid.data', 'wb')) # wb : write
+# print("== save complete ==")
  
 # model load
-# model = pickle.load(open('E:\\nmb\\nmb_data\\cp\\5s_last_0510_ml\\NuSVC_5_sigmoid.data', 'rb'))  # rb : read
+model = pickle.load(open('E:\\nmb\\nmb_data\\cp\\5s_last_0510_ml\\NuSVC_5_sigmoid.data', 'rb'))  # rb : read
 # time >>  
 
 # evaluate
@@ -82,7 +82,7 @@ for pred_pathAudio in pred:
         mels = librosa.feature.melspectrogram(y, sr=sr, hop_length=128, n_fft=512)
         pred_mels = librosa.amplitude_to_db(mels, ref=np.max)
         pred_mels = pred_mels.reshape(1, pred_mels.shape[0] * pred_mels.shape[1])
-        # print(pred_mels.shape)
+        pred_mels = scaler.transform(pred_mels)
         y_pred = model.predict(pred_mels)
         # print(y_pred)
         if y_pred == 0:   # 여성이라고 예측
@@ -118,54 +118,54 @@ Total nSV = 1933
 [LibSVM]== save complete ==
 log_loss :       2.8528927536995554
 accuracy :       0.9174008810572687
-E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F1.wav 남자입니다.
-E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F10.wav 남자입니다.
-E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F11.wav 남자입니다.
-E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F12.wav 남자입니다.
-E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F13.wav 남자입니다.
-E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F14.wav 남자입니다.
-E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F15.wav 남자입니다.
-E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F16.wav 남자입니다.
-E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F17.wav 남자입니다.
-E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F18.wav 남자입니다.
-E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F19.wav 남자입니다.
-E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F2.wav 남자입니다.
-E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F20.wav 남자입니다.
-E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F21.wav 남자입니다.
-E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F22.wav 남자입니다.
-E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F23.wav 남자입니다.
-E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F24.wav 남자입니다.
-E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F25.wav 남자입니다.
-E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F26.wav 남자입니다.
-E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F27.wav 남자입니다.
-E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F28.wav 남자입니다.
-E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F29.wav 남자입니다.
-E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F3.wav 남자입니다.
-E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F30.wav 남자입니다.
-E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F31.wav 남자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F1.wav 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F10.wav 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F11.wav 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F12.wav 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F13.wav 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F14.wav 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F15.wav 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F16.wav 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F17.wav 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F18.wav 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F19.wav 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F2.wav 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F20.wav 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F21.wav 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F22.wav 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F23.wav 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F24.wav 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F25.wav 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F26.wav 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F27.wav 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F28.wav 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F29.wav 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F3.wav 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F30.wav 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F31.wav 여자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F32.wav 남자입니다.
-E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F33.wav 남자입니다.
-E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F34.wav 남자입니다.
-E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F35.wav 남자입니다.
-E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F36.wav 남자입니다.
-E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F37.wav 남자입니다.
-E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F38.wav 남자입니다.
-E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F39.wav 남자입니다.
-E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F4.wav 남자입니다.
-E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F40.wav 남자입니다.
-E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F41.wav 남자입니다.
-E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F42.wav 남자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F33.wav 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F34.wav 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F35.wav 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F36.wav 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F37.wav 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F38.wav 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F39.wav 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F4.wav 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F40.wav 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F41.wav 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F42.wav 여자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F43.wav 남자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F5.wav 남자입니다.
-E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F6.wav 남자입니다.
-E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F7.wav 남자입니다.
-E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F8.wav 남자입니다.
-E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F9.wav 남자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F6.wav 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F7.wav 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F8.wav 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F9.wav 여자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M1.wav 남자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M10.wav 남자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M11.wav 남자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M12.wav 남자입니다.
-E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M13.wav 남자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M13.wav 여자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M14.wav 남자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M15.wav 남자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M16.wav 남자입니다.
@@ -177,17 +177,17 @@ E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M20.wav 남자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M21.wav 남자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M22.wav 남자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M23.wav 남자입니다.
-E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M24.wav 남자입니다.
-E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M25.wav 남자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M24.wav 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M25.wav 여자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M26.wav 남자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M27.wav 남자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M28.wav 남자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M29.wav 남자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M3.wav 남자입니다.
-E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M30.wav 남자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M30.wav 여자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M31.wav 남자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M32.wav 남자입니다.
-E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M33.wav 남자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M33.wav 여자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M34.wav 남자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M35.wav 남자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M36.wav 남자입니다.
@@ -198,13 +198,13 @@ E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M4.wav 남자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M40.wav 남자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M41.wav 남자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M42.wav 남자입니다.
-E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M43.wav 남자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M43.wav 여자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M5.wav 남자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M6.wav 남자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M7.wav 남자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M8.wav 남자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M9.wav 남자입니다.
-43개 여성 목소리 중 0개 정답
-43개 남성 목소리 중 43개 정답
+43개 여성 목소리 중 40개 정답
+43개 남성 목소리 중 37개 정답
 time >>  0:16:49.015825
 '''
