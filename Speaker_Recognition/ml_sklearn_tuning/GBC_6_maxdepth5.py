@@ -44,15 +44,15 @@ x_train = scaler.transform(x_train)
 x_test = scaler.transform(x_test)
 
 # 모델 구성
-model = GradientBoostingClassifier(verbose=1, random_state=42)
+model = GradientBoostingClassifier(verbose=1, random_state=42, max_depth=5)
 model.fit(x_train, y_train)
 
 # model & weight save
-pickle.dump(model, open('E:\\nmb\\nmb_data\\cp\\5s_last_0510_ml\\GBC_3_standard.data', 'wb')) # wb : write
+pickle.dump(model, open('E:\\nmb\\nmb_data\\cp\\5s_last_0510_ml\\GBC_6_maxdepth5.data', 'wb')) # wb : write
 print("== save complete ==")
 
 # model load
-# model = pickle.load(open('E:\\nmb\\nmb_data\\cp\\5s_last_0510_ml\\GBC_3_standard.data', 'rb'))  # rb : read
+# model = pickle.load(open('E:\\nmb\\nmb_data\\cp\\5s_last_0510_ml\\GBC_6_maxdepth5.data', 'rb'))  # rb : read
 # time >>  
 
 # evaluate
@@ -111,8 +111,8 @@ def beepsound():
 beepsound()
 
 '''
-log_loss :       2.5105550986612797
-accuracy :       0.9273127753303965
+log_loss :       2.6246752823279245
+accuracy :       0.9240088105726872
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F1.wav 여자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F10.wav 여자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F11.wav 여자입니다.
@@ -162,7 +162,7 @@ E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M11.wav 남자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M12.wav 남자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M13.wav 여자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M14.wav 남자입니다.
-E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M15.wav 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M15.wav 남자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M16.wav 여자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M17.wav 남자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M18.wav 남자입니다.
@@ -200,6 +200,6 @@ E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M7.wav 남자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M8.wav 남자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M9.wav 남자입니다.
 43개 여성 목소리 중 39개 정답
-43개 남성 목소리 중 39개 정답
-time >>  0:53:55.052739
-'''
+43개 남성 목소리 중 40개 정답
+time >>  1:25:01.318810
+''' 
