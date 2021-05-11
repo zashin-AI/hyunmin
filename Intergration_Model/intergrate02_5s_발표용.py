@@ -24,12 +24,7 @@ from tensorflow.keras.models import load_model
 '''
 
 # 남녀가 말하는 음성 파일 입력 
-# audio_file = 'E:\\nmb\\nmb_data\\STT_multiple_speaker_temp\\pansori\\un4qbATrmx8.wav'
-# audio_file = 'E:\\nmb\\nmb_data\\STT_multiple_speaker_temp\\mindslabABS\\ABS_M_81_SE_2018-0808-1145-40_denoise.wav'
-# audio_file = 'E:\\nmb\\nmb_data\\STT_multiple_speaker_temp\\mindslabGYD\\GYD_M_88_DG_2018-0806-1105-38_denoise.wav'
-# audio_file = 'E:\\nmb\\nmb_data\\STT_multiple_speaker_temp\\korea_t12\\korea_multi_t12.wav'
-# audio_file = 'E:\\nmb\\nmb_data\\STT_multiple_speaker_temp\\korea_t18\\korea_multi_t18.wav'
-audio_file = 'E:\\nmb\\nmb_data\\STT_multiple_speaker_temp\\0510_record\\korea_multi_t12.wav'
+audio_file = 'E:\\nmb\\nmb_data\\STT_multiple_speaker_temp\\pansori\\un4qbATrmx8.wav'
 
 # 파일 경로 분리
 audio_file_path = os.path.splitext(audio_file)
@@ -38,7 +33,6 @@ folder_path = audio_file_path[0]
 file_name = audio_file_path[1]
 print(folder_path, file_name)
 
-# class intergrate_model : 
 
 def _denoise (audio_file) : 
     '''
@@ -106,19 +100,15 @@ def _predict_speaker(y, sr) :
 # _denoise(audio_file)
 # print("denoise done")
 
-# 볼륨 정규화
-normalizedsound = _normalized_sound(audio_file)
-print("normalized done")
 
-# 묵음 자르기
-audio_chunks = _split_silence(normalizedsound)
-# print(audio_chunks)
-# [<pydub.audio_segment.AudioSegment object at 0x000001CF0F383C88>, <pydub.audio_segment.AudioSegment object at 0x000001CF0F383CC0>, <pydub.audio_segment.AudioSegment object at 0x000001CF0F383D68>, <pydub.audio_segment.AudioSegment object at 0x000001CF0F6C5A90>, <pydub.audio_segment.AudioSegment object at 0x000001CF0F6C5B00>, <pydub.audio_segment.AudioSegment object at 0x000001CF0F6C5B38>, <pydub.audio_segment.AudioSegment object at 0x000001CF0F6C5BE0>, <pydub.audio_segment.AudioSegment object at 0x000001CF0F7790F0>, <pydub.audio_segment.AudioSegment object at 0x000001CF0FCCB908>, <pydub.audio_segment.AudioSegment object at 0x000001CF0FCCB9E8>, <pydub.audio_segment.AudioSegment object at 0x000001CF0FCCB390>, <pydub.audio_segment.AudioSegment object at 0x000001CF0FCCB3C8>, <pydub.audio_segment.AudioSegment object at 0x000001CF0FCCB400>, <pydub.audio_segment.AudioSegment object at 0x000001CF0FCCB438>]
-# print("len(audio_chunks)", len(audio_chunks))    # 14
+normalizedsound = _normalized_sound(audio_file)                 # # 볼륨 정규화
+
+audio_chunks = _split_silence(normalizedsound)                  # # 묵음 자르기
+
 len_audio_chunks = len(audio_chunks)
 
-# 화자 구분을 가장 잘하는 모델 load
-model = load_model('E:/nmb/nmb_data/cp/mobilenet_rmsprop_1.h5')
+
+model = load_model('E:/nmb/nmb_data/cp/mobilenet_rmsprop_1.h5') # # 화자 구분 모델 load
 
 r = sr.Recognizer()
 save_script = ''
@@ -126,27 +116,24 @@ save_script = ''
 # STT -> 화자구분
 for i, chunk in enumerate(audio_chunks): 
     speaker_stt = []   
-    out_file = folder_path + "\\"+ str(i) + "_chunk.wav"    # wav 파일 생성 안하고 STT로 바꿀 수 있는 방법은 없을까//?
+    out_file = folder_path + "\\"+ str(i) + "_chunk.wav"    
     chunk.export(out_file, format="wav")
     aaa = sr.AudioFile(out_file)
     with aaa as source :
         audio = r.record(aaa)
 
-    try : 
-        # [1] STT & 맞춤법 확인
+    try :                                                                                                       # [1] STT & 맞춤법 확인
         spell_checked_text = _STT_checked_hanspell(audio)
-        speaker_stt.append(str(spell_checked_text))     # 화자와 텍스트를 한 리스트로 합칠 것임
+        speaker_stt.append(str(spell_checked_text))    
+        y, sampling_rate = librosa.load(out_file, sr=22050)                                                     # [2] 화자구분
 
-        # [2] 화자구분
-        y, sampling_rate = librosa.load(out_file, sr=22050)
-
-        if len(y) >= 22050*5 : # 5초 이상이라면,
-            y = y[:22050 * 5]  # 5초만 model.predict에 사용할 것임
+        if len(y) >= 22050*5 : # 5초 이상일 때, 
+            y = y[:22050 * 5]  
             speaker = _predict_speaker(y, sampling_rate)
             speaker_stt.append(str(speaker))
             print(speaker_stt[1], " : " , speaker_stt[0])
 
-        else :  # 5초 미만인 파일을 5초 이상으로 만든 후, 5초로 잘라서 model.predict에 넣는다.
+        else :                  # 5초 미만일 때,
             audio_copy = AudioSegment.from_wav(out_file)
             audio_copy = copy.deepcopy(audio_copy)
             for num in range(3) :
@@ -155,7 +142,7 @@ for i, chunk in enumerate(audio_chunks):
             y_copy, sampling_rate = librosa.load(folder_path + "\\"+ str(i) + "_chunk_over_5s.wav", sr=22050)
             y_copy = y_copy[:22050 * 5]
             speaker = _predict_speaker(y_copy, sampling_rate)
-            speaker_stt.append(str(speaker))    # 화자 구분을 못했다는 걸 공백으로 저장
+            speaker_stt.append(str(speaker))    
             print(speaker_stt[1], " : " , speaker_stt[0])
         
         # txt 파일로 저장하기
@@ -163,9 +150,7 @@ for i, chunk in enumerate(audio_chunks):
         with open(folder_path + "\\stt_script_5s.txt", 'wt') as f: f.writelines(save_script) 
 
     except : 
-        # 너무 짧은 음성은 STT & 화자구분 pass 
-        pass   
-
+        pass                                                                                                    # 너무 짧은 음성은 STT & 화자구분 pass 
 
 """
 [문제점]
