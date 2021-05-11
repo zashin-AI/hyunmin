@@ -102,12 +102,12 @@ def _predict_speaker(y, sr) :
         return '남자'  
     
 # 디노이즈
-_denoise(audio_file)
-print("denoise done")
+# _denoise(audio_file)
+# print("denoise done")
 
 # 볼륨 정규화
 normalizedsound = _normalized_sound(audio_file)
-# print("normalized done")
+print("normalized done")
 
 # 묵음 자르기
 audio_chunks = _split_silence(normalizedsound)
@@ -143,14 +143,15 @@ for i, chunk in enumerate(audio_chunks):
             y = y[:22050 * 5]  # 5초만 model.predict에 사용할 것임
             speaker = _predict_speaker(y, sampling_rate)
             speaker_stt.append(str(speaker))
-
             print(speaker_stt[1], " : " , speaker_stt[0])
 
-        else :
-            # 5초 미만인 파일을 5초 이상으로 만든 후, 5초로 잘라서 model.predict에 넣는다.
-            y_copy = copy.deepcopy(y)
-            for num in range(5) :
-                y_copy = y_copy.append(copy.deepcopy(y), crossfade=0) 
+        else :  # 5초 미만인 파일을 5초 이상으로 만든 후, 5초로 잘라서 model.predict에 넣는다.
+            audio_copy = AudioSegment.from_wav(out_file)
+            audio_copy = copy.deepcopy(audio_copy)
+            for num in range(3) :
+                audio_copy = audio_copy.append(copy.deepcopy(audio_copy), crossfade=0) 
+            audio_copy.export(folder_path + "\\"+ str(i) + "_chunk_over_5s.wav", format='wav')
+            y_copy, sampling_rate = librosa.load(folder_path + "\\"+ str(i) + "_chunk_over_5s.wav", sr=22050)
             y_copy = y_copy[:22050 * 5]
             speaker = _predict_speaker(y_copy, sampling_rate)
             speaker_stt.append(str(speaker))    # 화자 구분을 못했다는 걸 공백으로 저장
@@ -167,7 +168,9 @@ for i, chunk in enumerate(audio_chunks):
 """
 [문제점]
 - 5초로 model.predict로 만들어서, 5초 미만은 화자구분을 못한다. 화자 구분 안하고 넘어가는 게 많다.
-    > 1초로 model 만들어야 할 듯 ? ^ ^ ^^
+    > 1초로 model 만들어야 할 듯 ? ^ ^ ^^ 
+    >> 아니? 그럴 수 없어 
+    >> 일부러 5초 이상 만들어서 5초로 잘라서 넣는다.
 - 묵음 제거한 후, 같은 음성 파일 내에 여자 남자 동시에 있는 경우들이 있다. 
     > 묵음 제거를 잘 해야 함
 
@@ -178,3 +181,4 @@ for i, chunk in enumerate(audio_chunks):
 - 묵음 제거 개선
 - STT 개선
 """
+
