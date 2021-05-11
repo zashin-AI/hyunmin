@@ -10,14 +10,13 @@ from sklearn.calibration import CalibratedClassifierCV
 from sklearn.naive_bayes import GaussianNB
 from sklearn.svm import LinearSVC, SVC
 from sklearn.svm import NuSVC
+from sklearn.ensemble import GradientBoostingClassifier 
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 from sklearn.metrics import accuracy_score, recall_score, precision_score, f1_score, hamming_loss, hinge_loss, log_loss, mean_squared_error
-# from sklearn.utils import all_estimators  
-from sklearn.preprocessing import StandardScaler, MinMaxScaler
+# from sklearn.utils import all_estimators 
 import pickle  
 import warnings
 warnings.filterwarnings('ignore')
-
 def normalize(x, axis=0):
     return sklearn.preprocessing.minmax_scale(x, axis=axis)
 
@@ -38,21 +37,16 @@ print(x_test.shape)     # (908, 110336)
 print(y_train.shape)    # (3628,)
 print(y_test.shape)     # (908,)
 
-scaler = StandardScaler()
-scaler.fit(x_train)
-x_train = scaler.transform(x_train)
-x_test = scaler.transform(x_test)
-
 # 모델 구성
-model = NuSVC(verbose=1, random_state=42, nu=0.3, cache_size=100)
+model = GradientBoostingClassifier(verbose=1)
 model.fit(x_train, y_train)
 
 # model & weight save
-pickle.dump(model, open('E:\\nmb\\nmb_data\\cp\\5s_last_0510_ml\\NuSVC_11_cache100.data', 'wb')) # wb : write
+pickle.dump(model, open('E:\\nmb\\nmb_data\\cp\\5s_last_0510_ml\\GBC_1_default.data', 'wb')) # wb : write
 print("== save complete ==")
- 
+
 # model load
-# model = pickle.load(open('E:\\nmb\\nmb_data\\cp\\5s_last_0510_ml\\NuSVC_11_cache100.data', 'rb'))  # rb : read
+# model = pickle.load(open('E:\\nmb\\nmb_data\\cp\\5s_last_0510_ml\\GBC_1_default.data', 'rb'))  # rb : read
 # time >>  
 
 # evaluate
@@ -83,7 +77,7 @@ for pred_pathAudio in pred:
         mels = librosa.feature.melspectrogram(y, sr=sr, hop_length=128, n_fft=512)
         pred_mels = librosa.amplitude_to_db(mels, ref=np.max)
         pred_mels = pred_mels.reshape(1, pred_mels.shape[0] * pred_mels.shape[1])
-        pred_mels = scaler.transform(pred_mels)
+        # print(pred_mels.shape)
         y_pred = model.predict(pred_mels)
         # print(y_pred)
         if y_pred == 0:   # 여성이라고 예측
@@ -111,14 +105,29 @@ def beepsound():
 beepsound()
 
 '''
-optimization finished, #iter = 3603
-C = 1.342252
-obj = 658.311487, rho = -0.346215
-nSV = 2167, nBSV = 308
-Total nSV = 2167
-[LibSVM]== save complete ==
-log_loss :       1.5976200477454205
-accuracy :       0.9537444933920705
+     Iter       Train Loss   Remaining Time
+         1           1.2955           82.33m
+         2           1.2137           81.02m
+         3           1.1439           80.19m
+         4           1.0825           79.30m
+         5           1.0283           78.36m
+         6           0.9776           77.37m
+         7           0.9342           76.71m
+         8           0.8948           75.99m
+         9           0.8574           75.20m
+        10           0.8262           74.63m
+        20           0.6102           65.73m
+        30           0.4841           56.57m
+        40           0.3952           48.43m
+        50           0.3308           40.42m
+        60           0.2864           32.53m
+        70           0.2511           24.45m
+        80           0.2257           16.47m
+        90           0.2043            8.29m
+       100           0.1884            0.00s
+== save complete ==
+log_loss :       2.5105550986612797
+accuracy :       0.9273127753303965
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F1.wav 여자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F10.wav 여자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F11.wav 여자입니다.
@@ -154,12 +163,12 @@ E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F38.wav 여자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F39.wav 여자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F4.wav 여자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F40.wav 여자입니다.
-E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F41.wav 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F41.wav 남자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F42.wav 여자입니다.
-E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F43.wav 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F43.wav 남자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F5.wav 남자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F6.wav 여자입니다.
-E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F7.wav 남자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F7.wav 여자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F8.wav 여자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F9.wav 여자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M1.wav 남자입니다.
@@ -169,13 +178,13 @@ E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M12.wav 남자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M13.wav 여자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M14.wav 남자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M15.wav 여자입니다.
-E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M16.wav 남자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M16.wav 여자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M17.wav 남자입니다.
-E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M18.wav 여자입니다.
-E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M19.wav 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M18.wav 남자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M19.wav 남자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M2.wav 남자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M20.wav 남자입니다.
-E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M21.wav 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M21.wav 남자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M22.wav 남자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M23.wav 남자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M24.wav 남자입니다.
@@ -185,27 +194,27 @@ E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M27.wav 남자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M28.wav 남자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M29.wav 남자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M3.wav 남자입니다.
-E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M30.wav 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M30.wav 남자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M31.wav 남자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M32.wav 남자입니다.
-E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M33.wav 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M33.wav 남자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M34.wav 남자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M35.wav 남자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M36.wav 남자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M37.wav 남자입니다.
-E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M38.wav 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M38.wav 남자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M39.wav 남자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M4.wav 남자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M40.wav 남자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M41.wav 남자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M42.wav 남자입니다.
-E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M43.wav 여자입니다.
-E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M5.wav 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M43.wav 남자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M5.wav 남자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M6.wav 남자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M7.wav 남자입니다.
-E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M8.wav 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M8.wav 남자입니다.
 E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M9.wav 남자입니다.
-43개 여성 목소리 중 40개 정답
-43개 남성 목소리 중 31개 정답
-time >>  0:18:25.478242
+43개 여성 목소리 중 39개 정답
+43개 남성 목소리 중 39개 정답
+time >>  1:23:55.244198
 '''
