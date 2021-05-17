@@ -6,6 +6,7 @@
 # Setup
 ## index.html : 웹페이지 맨 처음 만들었을 때 나오는 첫 화면
 
+# https://www.youtube.com/watch?v=mqhxxeeTbu0
 from flask import Flask, redirect, url_for
 
 app = Flask(__name__)
