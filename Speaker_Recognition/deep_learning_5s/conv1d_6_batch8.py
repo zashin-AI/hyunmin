@@ -148,4 +148,98 @@ def beepsound():
 beepsound()
 
 """
+Epoch 00043: val_loss did not improve from 0.05209
+Epoch 00043: early stopping
+114/114 [==============================] - 17s 148ms/step - loss: 0.0652 - acc: 0.9736
+loss : 0.06515
+acc : 0.97357
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F1.wav 99.9990 의 확률로 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F10.wav 99.8805 의 확률로 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F11.wav 99.9425 의 확률로 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F12.wav 100.0000 의 확률로 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F13.wav 99.9974 의 확률로 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F14.wav 100.0000 의 확률로 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F15.wav 100.0000 의 확률로 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F16.wav 99.9897 의 확률로 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F17.wav 99.9992 의 확률로 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F18.wav 99.9958 의 확률로 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F19.wav 99.5362 의 확률로 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F2.wav 99.9694 의 확률로 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F20.wav 99.9998 의 확률로 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F21.wav 100.0000 의 확률로 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F22.wav 99.7908 의 확률로 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F23.wav 100.0000 의 확률로 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F24.wav 99.9920 의 확률로 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F25.wav 99.9990 의 확률로 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F26.wav 99.9881 의 확률로 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F27.wav 99.9990 의 확률로 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F28.wav 99.9999 의 확률로 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F29.wav 97.8644 의 확률로 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F3.wav 99.9961 의 확률로 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F30.wav 99.9911 의 확률로 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F31.wav 100.0000 의 확률로 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F32.wav 97.3397 의 확률로 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F33.wav 99.9998 의 확률로 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F34.wav 99.9998 의 확률로 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F35.wav 97.3173 의 확률로 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F36.wav 99.9570 의 확률로 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F37.wav 99.9946 의 확률로 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F38.wav 99.9959 의 확률로 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F39.wav 99.9945 의 확률로 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F4.wav 99.9994 의 확률로 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F40.wav 99.9996 의 확률로 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F41.wav 99.9652 의 확률로 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F42.wav 99.9995 의 확률로 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F43.wav 98.7283 의 확률로 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F5.wav 99.9874 의 확률로 남자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F6.wav 99.9856 의 확률로 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F7.wav 58.5632 의 확률로 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F8.wav 99.9997 의 확률로 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\F\F9.wav 99.9986 의 확률로 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M1.wav 99.9974 의 확률로 남자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M10.wav 99.9993 의 확률로 남자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M11.wav 99.9920 의 확률로 남자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M12.wav 99.9542 의 확률로 남자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M13.wav 71.9972 의 확률로 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M14.wav 99.9235 의 확률로 남자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M15.wav 100.0000 의 확률로 남자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M16.wav 99.7652 의 확률로 남자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M17.wav 99.9841 의 확률로 남자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M18.wav 99.9998 의 확률로 남자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M19.wav 99.9929 의 확률로 남자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M2.wav 99.9441 의 확률로 남자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M20.wav 99.9995 의 확률로 남자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M21.wav 99.9784 의 확률로 남자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M22.wav 99.6799 의 확률로 남자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M23.wav 99.9998 의 확률로 남자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M24.wav 99.7985 의 확률로 남자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M25.wav 84.5195 의 확률로 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M26.wav 99.7791 의 확률로 남자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M27.wav 99.9859 의 확률로 남자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M28.wav 99.9314 의 확률로 남자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M29.wav 99.9314 의 확률로 남자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M3.wav 99.9762 의 확률로 남자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M30.wav 69.7695 의 확률로 남자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M31.wav 99.9996 의 확률로 남자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M32.wav 99.9902 의 확률로 남자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M33.wav 99.9993 의 확률로 남자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M34.wav 99.9991 의 확률로 남자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M35.wav 99.9917 의 확률로 남자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M36.wav 97.3889 의 확률로 남자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M37.wav 99.9919 의 확률로 남자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M38.wav 99.9977 의 확률로 남자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M39.wav 99.9927 의 확률로 남자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M4.wav 99.9952 의 확률로 남자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M40.wav 99.9996 의 확률로 남자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M41.wav 97.6322 의 확률로 남자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M42.wav 99.9870 의 확률로 남자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M43.wav 73.6038 의 확률로 남자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M5.wav 99.7380 의 확률로 남자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M6.wav 99.9996 의 확률로 남자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M7.wav 90.0743 의 확률로 여자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M8.wav 99.9778 의 확률로 남자입니다.
+E:\nmb\nmb_data\5s_last_0510\predict_04_26\M\M9.wav 99.9727 의 확률로 남자입니다.
+43개 여성 목소리 중 42개 정답
+42개 남성 목소리 중 40개 정답
+작업 시간 :  0:31:43.149034
 """
