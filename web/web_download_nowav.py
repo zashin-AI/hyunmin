@@ -41,7 +41,7 @@ def normalized_sound(auido_file):
     normalizedsound = effects.normalize(audio)
     return normalizedsound
 
-def split_slience(audio_file):
+def split_silence(audio_file):
     dbfs = audio_file.dBFS
     audio_chunks = split_on_silence(
         audio_file,
@@ -87,7 +87,7 @@ def download():
         if not f: return render_template('upload.html')
 
         normalizedsound = normalized_sound(f)
-        audio_chunks = split_slience(normalizedsound)
+        audio_chunks = split_silence(normalizedsound)
 
         save_script = ''
 
