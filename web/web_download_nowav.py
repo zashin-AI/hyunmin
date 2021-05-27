@@ -126,14 +126,10 @@ def download():
                 with open('E:/nmb/nada/web/static/test.txt', 'wt', encoding='utf-8') as f: f.writelines(save_script)
 
                 # chunk.wav 파일 삭제하기
-                if os.path.isfile(out_file) :
-                    os.remove(out_file)
-                
-                if os.path.isfile(out_file_over5s) : 
-                    os.remove(out_file_over5s)
+                if os.path.isfile(out_file) : os.remove(out_file)
+                if os.path.isfile(out_file_over5s) : os.remove(out_file_over5s)
 
-            except:
-                pass
+            except: pass
         return render_template('/download.html')
     
 # 파일 다운로드
