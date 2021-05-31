@@ -7,6 +7,8 @@ from flask import Flask, request, render_template, send_file
 from tensorflow.keras.models import load_model
 from pydub import AudioSegment, effects
 from pydub.silence import split_on_silence
+from hanspell import spell_checker 
+
 import numpy as np
 import librosa
 import speech_recognition as sr
@@ -26,7 +28,6 @@ if gpus:
     except RuntimeError as e:
         # Memory growth must be set before GPUs have been initialized
         print(e)
-
 
 # 필요함수 정의
 r = sr.Recognizer()
@@ -50,7 +51,9 @@ def STT(audio_file):
     with audio_file as audio:
         file = r.record(audio)
         stt = r.recognize_google(file, language='ko-KR')
-    return stt
+        spelled_sent = spell_checker.check(stt)
+        checked_sent = spelled_sent.checked
+    return checked_sent
 
 def predict_speaker(y, sr):
     mels = librosa.feature.melspectrogram(y, sr = sr, hop_length=128, n_fft=512, win_length=512)
@@ -82,8 +85,6 @@ def download():
 
         f_path = os.path.splitext(str(f))
         f_path = os.path.split(f_path[0])
-
-        folder_path = 'c:/nmb/nmb_data/web/chunk/'
 
         normalizedsound = normalized_sound(f)
         audio_chunks = split_slience(normalizedsound)
@@ -129,7 +130,7 @@ def download():
                     y_copy = y_copy[:22050*5]
                     speaker = predict_speaker(y_copy, sample_rate)
                     speaker_stt.append(str(speaker))
-                    print(speaker_stt[1] + " : " + speaker_stt[0])
+                    print(speaker_stt[1], " : ", speaker_stt[0])
                     if speaker == '여자':
                         female_list.append(str(speaker_stt[0]))
                     else:
